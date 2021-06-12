@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
    
 services:
   db:
@@ -8,10 +8,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
-    build: .
+    build: ./back
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - ./back:/code
     ports:
       - "8000:8000"
     depends_on:
