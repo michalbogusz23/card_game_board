@@ -1,0 +1,35 @@
+* {
+    border: 1px solid;
+}
+
+.player{
+    display: flex;
+    height: 100px;
+}
+
+.player-cards {
+    padding: 10px;
+    display: flex;
+    width: 75%;
+}
+
+.player-button {
+    width: 25%;
+}
+
+.board{
+    display: flex;
+    height: 300px;
+}
+.board-cards {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.board-card-row {
+    height: 50%
+}
+.board-result {
+    width: 40%
+}
