@@ -21,26 +21,21 @@ class Player extends React.Component {
     }
   }
 
-  renderCard(i) {
-    return (
-      <div className="player-card"></div>
-    );
-  }
   render() {
     const cardsValues = this.state.cardsValues;
 
-    const cards = cardsValues.map((step, card) =>  {
+    const cards = cardsValues.map((card) =>  {
       return (
         <div>{card}</div>
       )
-    })
+    });
     return (
       <div className="player">
         <div className="player-cards">
           {cards}
         </div>
         <div className="player-button">
-
+          <button>OK</button>
         </div>
       </div>
       
@@ -48,15 +43,37 @@ class Player extends React.Component {
   }
 }
 class Board extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      top_player: [1],
+      bottom_player: [2]
+    }
+  }
+  
   render() {
+    const top_player = this.state.top_player;
+    const bottom_player = this.state.bottom_player;
+
+    const top_cards = top_player.map((card) =>  {
+      return (
+        <div>{card}</div>
+      )
+    });
+    const bottom_cards = bottom_player.map((card) =>  {
+      return (
+        <div>{card}</div>
+      )
+    });
+
     return (
       <div className="board">
         <div className="board-cards">
           <div className="board-card-row">
-
+            {top_cards}
           </div>
           <div className="board-card-row">
-
+            {bottom_cards}
           </div>
         </div>
         <div className="board-result">
