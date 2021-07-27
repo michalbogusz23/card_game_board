@@ -3,28 +3,32 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      top_cards: Array(9).fill(3),
+      bot_cards: Array(9).fill(3),
+      top_ingame_cards: Array(1).fill(3),
+      bot_ingame_cards: Array(1).fill(3),
+    };
+  }
   render() {
     return (
       <div className="table">
-        <Player/>
-        <Board/>
-        <Player/>
+        <Player value={this.state.top_cards}/>
+        <Board
+          top={this.state.top_ingame_cards}
+          bot={this.state.bot_ingame_cards}/>
+        <Player value={this.state.bot_cards}/>
       </div>
     )
   }
 }
 class Player extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      cardsValues: Array(9).fill(1),
-    }
-  }
-
   render() {
-    const cardsValues = this.state.cardsValues;
+    const values = this.props.value;
 
-    const cards = cardsValues.map((card) =>  {
+    const cards = values.map((card) =>  {
       return (
         <div>{card}</div>
       )
@@ -43,17 +47,9 @@ class Player extends React.Component {
   }
 }
 class Board extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      top_player: [1],
-      bottom_player: [2]
-    }
-  }
-  
   render() {
-    const top_player = this.state.top_player;
-    const bottom_player = this.state.bottom_player;
+    const top_player = this.props.top;
+    const bottom_player = this.props.bot;
 
     const top_cards = top_player.map((card) =>  {
       return (
