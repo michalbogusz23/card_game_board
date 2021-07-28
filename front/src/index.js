@@ -12,6 +12,7 @@ class Table extends React.Component {
       ],
       ingame_cards: Array.from(Array(2), () => new Array(0)),
       topIsNext: true,
+      canCollect: false,
     };
   }
   handleClick() {
@@ -19,6 +20,26 @@ class Table extends React.Component {
       this.drawCard(0);
     } else {
       this.drawCard(1);
+    }
+    const length0 = this.state.ingame_cards[0].length
+    const length1 = this.state.ingame_cards[1].length
+    if(length0 === length1) {
+      if(this.state.ingame_cards[0][length0 - 1] !== this.state.ingame_cards[1][length1 - 1]) {
+        this.setState({
+          canCollect: true,
+        });
+      } else {
+        ;
+      }
+    }
+  }
+  handleCollectClick() {
+    const length0 = this.state.ingame_cards[0].length
+    const length1 = this.state.ingame_cards[1].length
+    if(this.state.ingame_cards[0][length0 - 1] > this.state.ingame_cards[1][length1 - 1]) {
+      this.collectCards(0);
+    } else {
+      this.collectCards(1);
     }
   }
   drawCard(player) {
@@ -31,18 +52,35 @@ class Table extends React.Component {
       topIsNext: !this.state.topIsNext
     });
   }
-
+  collectCards(player) {
+    const ingame_cards = this.state.ingame_cards.slice();
+    const player_cards = this.state.player_cards.slice();
+    const cardsToCollect = ingame_cards[0].concat(ingame_cards[1])
+    player_cards[player] = cardsToCollect.concat(player_cards[player])
+    this.setState({
+      ingame_cards: Array.from(Array(2), () => new Array(0)),
+      player_cards: player_cards,
+      canCollect: false
+    });
+  }
   render() {
     return (
       <div className="table">
         <Player 
           value={this.state.player_cards[0]}
-          onClick={() => this.handleClick()}/>
+          onClick={() => this.handleClick()}
+          canCollect={this.state.canCollect}
+        />
         <Board
-          value={this.state.ingame_cards}/>
+          value={this.state.ingame_cards}
+          canCollect={this.state.canCollect}
+          onClick={() => this.handleCollectClick()}
+        />
         <Player 
           value={this.state.player_cards[1]}
-          onClick={() => this.handleClick()}/>
+          onClick={() => this.handleClick()}
+          canCollect={this.state.canCollect}
+        />
       </div>
     )
   }
@@ -57,6 +95,7 @@ class Player extends React.Component {
         <div>{card}</div>
       )
     });
+    const canCollect = this.props.canCollect
     
     return (
       <div className="player">
@@ -64,7 +103,7 @@ class Player extends React.Component {
           {cards}
         </div>
         <div className="player-button">
-          <button onClick={() => this.props.onClick()}>OK</button>
+          <button onClick={() => this.props.onClick()} disabled={canCollect}>OK</button>
         </div>
       </div>
       
@@ -89,6 +128,11 @@ class Board extends React.Component {
       )
     });
 
+    let collectButton = null
+    if(this.props.canCollect) {
+      collectButton = <button onClick={this.props.onClick}>Collect</button>
+    }
+
     return (
       <div className="board">
         <div className="board-cards">
@@ -100,7 +144,7 @@ class Board extends React.Component {
           </div>
         </div>
         <div className="board-result">
-
+          {collectButton}
         </div>
       </div>
     )
