@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {prepareCards} from './deck.js'
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -13,10 +14,7 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player_cards: [
-        Array.from(Array(10)).map(x=>Math.floor(Math.random() * 11)),
-        Array.from(Array(10)).map(x=>Math.floor(Math.random() * 11))
-      ],
+      player_cards: prepareCards(2),
       ingame_cards: Array.from(Array(2), () => new Array(0)),
       topIsNext: true,
       canCollect: false,
@@ -72,11 +70,13 @@ class Table extends React.Component {
       canCollect: false
     });
   }
+
   render() {
+    console.log(this.state.player_cards)
     return (
       <div className="table">
         <Player 
-          value={this.state.player_cards[0]}
+          cards={this.state.player_cards[0]}
           onClick={() => this.handleClick()}
           canCollect={this.state.canCollect}
         />
@@ -86,7 +86,7 @@ class Table extends React.Component {
           onClick={() => this.handleCollectClick()}
         />
         <Player 
-          value={this.state.player_cards[1]}
+          cards={this.state.player_cards[1]}
           onClick={() => this.handleClick()}
           canCollect={this.state.canCollect}
         />
@@ -95,21 +95,38 @@ class Table extends React.Component {
   }
 }
 
+function Card(props) {
+  let suit
+  if (props.suit === "spades") {
+    suit = "♠"
+  } else if (props.suit === "diamonds") {
+    suit = "♦"
+  } else if (props.suit === "hearts") {
+    suit = "♥"
+  } else if (props.suit === "clubs") {
+    suit = "♣"
+  }
+  return (
+    <div className="card">
+      <div><span className="card-values">{props.value}</span></div> 
+      <div><span className="card-values">{suit}</span></div>
+    </div>
+  )
+}
+
 
 class Player extends React.Component {
   render() {
-    const values = this.props.value;
-    const cards = values.map((card) =>  {
-      return (
-        <div>{card}</div>
-      )
+    const cards = this.props.cards;
+    const cards_display = cards.map((card) =>  {
+      return Card(card)
     });
     const canCollect = this.props.canCollect
     
     return (
       <div className="player">
         <div className="player-cards">
-          {cards}
+          {cards_display}
         </div>
         <div className="player-button">
           <button onClick={() => this.props.onClick()} disabled={canCollect}>OK</button>
@@ -127,14 +144,10 @@ class Board extends React.Component {
     const bottom_player = this.props.value[1];
 
     const top_cards = top_player.map((card) =>  {
-      return (
-        <div>{card}</div>
-      )
+      return Card(card)
     });
     const bottom_cards = bottom_player.map((card) =>  {
-      return (
-        <div>{card}</div>
-      )
+      return Card(card)
     });
 
     let collectButton = null

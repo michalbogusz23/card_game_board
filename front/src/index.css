@@ -33,3 +33,25 @@
 .board-result {
     width: 40%
 }
+
+.card
+{   
+	border: solid 1px #aaa;
+	border-radius: 4px;
+	width: 30px;
+	height: 50px;
+	background-color: white;
+	margin: 2px;
+    text-align: center;
+}
+
+div.card * {
+    border: none;   
+    height: 50%;
+}
+
+.card-values {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
