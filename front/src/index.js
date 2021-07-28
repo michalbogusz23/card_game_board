@@ -2,6 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +20,7 @@ class Table extends React.Component {
       ingame_cards: Array.from(Array(2), () => new Array(0)),
       topIsNext: true,
       canCollect: false,
+      isWar: false
     };
   }
   handleClick() {
@@ -24,12 +32,12 @@ class Table extends React.Component {
     const length0 = this.state.ingame_cards[0].length
     const length1 = this.state.ingame_cards[1].length
     if(length0 === length1) {
-      if(this.state.ingame_cards[0][length0 - 1] !== this.state.ingame_cards[1][length1 - 1]) {
+      if(this.state.ingame_cards[0][length0 - 1] !== this.state.ingame_cards[1][length1 - 1] && !this.state.isWar) {
         this.setState({
           canCollect: true,
         });
       } else {
-        ;
+        this.setState({isWar: !this.state.isWar})
       }
     }
   }
@@ -55,7 +63,8 @@ class Table extends React.Component {
   collectCards(player) {
     const ingame_cards = this.state.ingame_cards.slice();
     const player_cards = this.state.player_cards.slice();
-    const cardsToCollect = ingame_cards[0].concat(ingame_cards[1])
+    let cardsToCollect = ingame_cards[0].concat(ingame_cards[1])
+    shuffleArray(cardsToCollect)
     player_cards[player] = cardsToCollect.concat(player_cards[player])
     this.setState({
       ingame_cards: Array.from(Array(2), () => new Array(0)),
