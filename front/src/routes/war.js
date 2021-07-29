@@ -10,7 +10,7 @@ function shuffleArray(array) {
   }
 }
 
-export class War extends React.Component {
+export default class war extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
