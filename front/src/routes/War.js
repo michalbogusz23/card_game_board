@@ -1,8 +1,9 @@
 import React from 'react';
 import './war.css';
-import {prepareCards} from '../deck.js'
-import { Card } from '../Card';
-import { shuffle } from '../deck';
+import {prepareCards} from '../Deck.js'
+import { shuffle } from '../Deck';
+import { Player } from '../Player';
+import { Board } from '../Board';
 
 export default class War extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ export default class War extends React.Component {
       topIsNext: !this.state.topIsNext
     });
   }
-  
+
   collectCards(player) {
     const ingame_cards = this.state.ingame_cards.slice();
     const player_cards = this.state.player_cards.slice();
@@ -93,60 +94,4 @@ export default class War extends React.Component {
   }
 }
 
-class Player extends React.Component {
-  render() {
-    const cards = this.props.cards;
-    const cards_display = cards.map((card) =>  {
-      return Card(card)
-    });
-    const canCollect = this.props.canCollect
-    
-    return (
-      <div className="player">
-        <div className="player-cards">
-          {cards_display}
-        </div>
-        <div className="player-button">
-          <button onClick={() => this.props.onClick()} disabled={canCollect}>DRAW</button>
-        </div>
-      </div>
-      
-    )
-  }
-}
 
-
-class Board extends React.Component {
-  render() {
-    const top_player = this.props.value[0];
-    const bottom_player = this.props.value[1];
-
-    const top_cards = top_player.map((card) =>  {
-      return Card(card)
-    });
-    const bottom_cards = bottom_player.map((card) =>  {
-      return Card(card)
-    });
-
-    let collectButton = null
-    if(this.props.canCollect) {
-      collectButton = <button onClick={this.props.onClick}>Collect</button>
-    }
-
-    return (
-      <div className="board">
-        <div className="board-cards">
-          <div className="board-card-row">
-            {top_cards}
-          </div>
-          <div className="board-card-row">
-            {bottom_cards}
-          </div>
-        </div>
-        <div className="board-result">
-          {collectButton}
-        </div>
-      </div>
-    )
-  }
-}

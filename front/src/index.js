@@ -2,8 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ReactDOM from 'react-dom';
 
-const War = lazy(() => import('./routes/war'))
-const Makao = lazy(() => import('./routes/makao'))
+const War = lazy(() => import('./routes/War'))
+const Makao = lazy(() => import('./routes/Makao'))
 
 const App = () => (
   <Router>
