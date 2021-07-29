@@ -30,7 +30,7 @@ class Table extends React.Component {
     const length0 = this.state.ingame_cards[0].length
     const length1 = this.state.ingame_cards[1].length
     if(length0 === length1) {
-      if(this.state.ingame_cards[0][length0 - 1] !== this.state.ingame_cards[1][length1 - 1] && !this.state.isWar) {
+      if(this.state.ingame_cards[0][length0 - 1].value !== this.state.ingame_cards[1][length1 - 1].value && !this.state.isWar) {
         this.setState({
           canCollect: true,
         });
@@ -42,7 +42,7 @@ class Table extends React.Component {
   handleCollectClick() {
     const length0 = this.state.ingame_cards[0].length
     const length1 = this.state.ingame_cards[1].length
-    if(this.state.ingame_cards[0][length0 - 1] > this.state.ingame_cards[1][length1 - 1]) {
+    if(this.state.ingame_cards[0][length0 - 1].value > this.state.ingame_cards[1][length1 - 1].value) {
       this.collectCards(0);
     } else {
       this.collectCards(1);
@@ -96,20 +96,24 @@ class Table extends React.Component {
 }
 
 function Card(props) {
-  let suit
+  let suit;
+  let color;
   if (props.suit === "spades") {
     suit = "♠"
   } else if (props.suit === "diamonds") {
     suit = "♦"
+    color = {color: "red"}
   } else if (props.suit === "hearts") {
     suit = "♥"
+    color = {color: "red"}
   } else if (props.suit === "clubs") {
     suit = "♣"
   }
+  const key = props.suit + props.value
   return (
-    <div className="card">
+    <div key={key} className="card">
       <div><span className="card-values">{props.value}</span></div> 
-      <div><span className="card-values">{suit}</span></div>
+      <div><span className="card-values" style={color}>{suit}</span></div>
     </div>
   )
 }
@@ -129,7 +133,7 @@ class Player extends React.Component {
           {cards_display}
         </div>
         <div className="player-button">
-          <button onClick={() => this.props.onClick()} disabled={canCollect}>OK</button>
+          <button onClick={() => this.props.onClick()} disabled={canCollect}>DRAW</button>
         </div>
       </div>
       
