@@ -10,9 +10,15 @@ export function prepareCards(numOfPlayers, cardsPerPlayer=undefined) {
         for(let i = 0; i < numOfPlayers; i++) {
             playerCards.push(shuffledDeck.slice(i*cardsToDraw, (i+1)*cardsToDraw))
         }
+        return playerCards
+    } else {
+        for(let i = 0; i < numOfPlayers; i++) {
+            playerCards.push(shuffledDeck.slice(i*cardsPerPlayer, (i+1)*cardsPerPlayer))
+        }
+        const stack = shuffledDeck.slice(numOfPlayers*cardsPerPlayer-1, -1)
+        return [playerCards, stack]
     }
 
-    return playerCards
 }
 
 function getDeck() {

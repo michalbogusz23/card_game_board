@@ -7,12 +7,15 @@ import './war.css';
 export default class Makao extends React.Component {
   constructor(props) {
     super(props);
+    const preparedCards = prepareCards(4, 5)
     this.state = {
-      player_cards: prepareCards(4),
-      ingame_cards: Array.from(Array(2), () => new Array(0)),
+      player_cards: preparedCards[0],
+      ingame_cards: Array.from(Array(4), () => new Array(0)),
+      stack: preparedCards[1],
     };
   }
   render() {
+    console.log(this.state.stack)
     return (
       <div className="table">
         <Player cards={this.state.player_cards[0]}/>
