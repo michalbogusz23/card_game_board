@@ -1,6 +1,5 @@
 import React from 'react';
 import { Player } from '../Player';
-import { Board } from '../Board';
 import {prepareCards} from '../Deck.js'
 import './war.css';
 
@@ -10,7 +9,6 @@ export default class Makao extends React.Component {
     const preparedCards = prepareCards(4, 5)
     this.state = {
       player_cards: preparedCards[0],
-      ingame_cards: Array.from(Array(4), () => new Array(0)),
       stack: preparedCards[1],
     };
   }
@@ -20,10 +18,21 @@ export default class Makao extends React.Component {
       <div className="table">
         <Player cards={this.state.player_cards[0]}/>
         <Player cards={this.state.player_cards[1]}/>
-        <Board value={this.state.ingame_cards}/>
+        <CardStacks/>
         <Player cards={this.state.player_cards[2]}/>
         <Player cards={this.state.player_cards[3]}/>
       </div>
     )
   }
+}
+
+function CardStacks(props) {
+  return (
+    <div className="stack">
+      <div className="stack-drawed">
+      </div>
+      <div className="stack-todraw">
+      </div>
+    </div>
+  )
 }

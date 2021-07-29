@@ -79,3 +79,15 @@ button:disabled {
     background-color: #b9b9b9;
     border: none;
 }
+
+.stack {
+    display: flex;
+    height: 300px;
+}
+.stack-drawed {
+    width: 60%;
+}
+
+.stack_todraw {
+    width: 40%;
+}

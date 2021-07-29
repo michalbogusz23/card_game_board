@@ -80,7 +80,7 @@ export default class War extends React.Component {
           canCollect={this.state.canCollect}
         />
         <Board
-          value={this.state.ingame_cards}
+          cards={this.state.ingame_cards}
           canCollect={this.state.canCollect}
           onClick={() => this.handleCollectClick()}
         />
