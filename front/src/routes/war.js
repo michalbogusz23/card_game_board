@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './war.css';
 import {prepareCards} from '../deck.js'
 import { Card } from '../Card';
@@ -11,7 +10,7 @@ function shuffleArray(array) {
   }
 }
 
-class Table extends React.Component {
+export class War extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -153,9 +152,3 @@ class Board extends React.Component {
     )
   }
 }
-
-ReactDOM.render(
-  <Table />,
-  document.getElementById('root')
-);
-

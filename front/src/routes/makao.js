@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './war.css';
 
-class Table extends React.Component {
+export class Makao extends React.Component {
   render() {
     return (
       <div className="table">
@@ -11,9 +10,3 @@ class Table extends React.Component {
     )
   }
 }
-
-
-ReactDOM.render(
-  <Table />,
-  document.getElementById('root')
-);
