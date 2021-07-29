@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {prepareCards} from './deck.js'
+import { Card } from './Card';
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -94,30 +95,6 @@ class Table extends React.Component {
     )
   }
 }
-
-function Card(props) {
-  let suit;
-  let color;
-  if (props.suit === "spades") {
-    suit = "♠"
-  } else if (props.suit === "diamonds") {
-    suit = "♦"
-    color = {color: "red"}
-  } else if (props.suit === "hearts") {
-    suit = "♥"
-    color = {color: "red"}
-  } else if (props.suit === "clubs") {
-    suit = "♣"
-  }
-  const key = props.suit + props.value
-  return (
-    <div key={key} className="card">
-      <div><span className="card-values">{props.value}</span></div> 
-      <div><span className="card-values" style={color}>{suit}</span></div>
-    </div>
-  )
-}
-
 
 class Player extends React.Component {
   render() {
