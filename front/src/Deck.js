@@ -1,13 +1,15 @@
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const suits = ["spades", "diamonds", "clubs", "hearts"];
 
-export function prepareCards(numOfPlayers) {
-    const deck = getDeck()
-    const shuffledDeck = shuffle(deck)
-    let  playerCards = []
-    const cards_per_player = 52 / numOfPlayers
-    for(let i = 0; i < numOfPlayers; i++) {
-        playerCards.push(shuffledDeck.slice(i*cards_per_player, (i+1)*cards_per_player))
+export function prepareCards(numOfPlayers, cardsPerPlayer=undefined) {
+    const deck = getDeck();
+    const shuffledDeck = shuffle(deck);
+    let  playerCards = [];
+    if(!cardsPerPlayer) {
+        const cardsToDraw = 52 / numOfPlayers;
+        for(let i = 0; i < numOfPlayers; i++) {
+            playerCards.push(shuffledDeck.slice(i*cardsToDraw, (i+1)*cardsToDraw))
+        }
     }
 
     return playerCards
