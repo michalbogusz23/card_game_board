@@ -22,3 +22,11 @@ export function Card(props) {
     </div>
   );
 }
+
+export function CardPile(props) {
+  console.log(props.card)
+  const cardPile = props.cards.map((card) => {
+    return Card(card);
+  });
+  return cardPile
+}

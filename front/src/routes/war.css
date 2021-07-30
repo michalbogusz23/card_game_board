@@ -88,6 +88,9 @@ button:disabled {
     width: 60%;
 }
 
-.stack_todraw {
+.stack-todraw {
     width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    
 }
