@@ -20,23 +20,23 @@ export default class Makao extends React.Component {
     console.log(this.state.cardsOnTable)
     return (
       <div className="table">
-        <Player cards={this.state.player_cards[0]}/>
-        <Player cards={this.state.player_cards[1]}/>
-        <CardStacks stack={this.state.stack} cardsOnTable={this.state.cardsOnTable}/>
-        <Player cards={this.state.player_cards[2]}/>
-        <Player cards={this.state.player_cards[3]}/>
+        <Player cards={this.state.player_cards[0]} clickable={true}/>
+        <Player cards={this.state.player_cards[1]} clickable={true}/>
+        <MakaoBoard stack={this.state.stack} cardsOnTable={this.state.cardsOnTable}/>
+        <Player cards={this.state.player_cards[2]} clickable={true}/>
+        <Player cards={this.state.player_cards[3]} clickable={true}/>
       </div>
     )
   }
 }
 
-function CardStacks(props) {
+function MakaoBoard(props) {
   return (
-    <div className="stack">
-      <div className="stack-drawed">
+    <div className="makao-board">
+      <div className="makao-board-dealt">
         <CardPile cards={props.cardsOnTable}></CardPile>
       </div>
-      <div className="stack-todraw">
+      <div className="makao-board-pile">
         <CardPile cards={props.stack}></CardPile>
       </div>
     </div>

@@ -46,10 +46,10 @@
 {   
 	border: solid 1px #aaa;
 	border-radius: 4px;
-	width: 30px;
-	height: 50px;
+	width: 40px;
+	height: 60px;
 	background-color: white;
-	margin: 2px;
+	margin: 4px;
     text-align: center;
 }
 
@@ -62,6 +62,7 @@ div.card * {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
+    font-size: x-large;
 }
 
 button {
@@ -80,17 +81,25 @@ button:disabled {
     border: none;
 }
 
-.stack {
+.makao-board {
     display: flex;
     height: 300px;
 }
-.stack-drawed {
+.makao-board-dealt {
     width: 60%;
+    display: flex;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
-.stack-todraw {
+.makao-board-pile {
     width: 40%;
     display: flex;
     flex-wrap: wrap;
-    
+}
+.card.active {
+    border: solid 3px green;
+    margin: 2px;
+    margin-top: -5px;
 }
