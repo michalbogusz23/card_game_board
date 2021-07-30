@@ -1,17 +1,10 @@
 import React from 'react';
-import { Card } from './Card';
+import { CardPile } from './Card';
 
 export class Board extends React.Component {
   render() {
-    const top_player = this.props.value[0];
-    const bottom_player = this.props.value[1];
-
-    const top_cards = top_player.map((card) => {
-      return Card(card);
-    });
-    const bottom_cards = bottom_player.map((card) => {
-      return Card(card);
-    });
+    const top_player = this.props.cards[0];
+    const bottom_player = this.props.cards[1];
 
     let collectButton = null;
     if (this.props.canCollect) {
@@ -22,10 +15,10 @@ export class Board extends React.Component {
       <div className="board">
         <div className="board-cards">
           <div className="board-card-row">
-            {top_cards}
+            <CardPile cards={top_player}/>
           </div>
           <div className="board-card-row">
-            {bottom_cards}
+            <CardPile cards={bottom_player}/>
           </div>
         </div>
         <div className="board-result">
