@@ -1,111 +1,110 @@
 * {
-    border: 1px solid;
+  border: 1px solid;
 }
 
-.player{
-    display: flex;
+.player {
+  display: flex;
 }
 
 .player-cards {
-    padding: 20px 10px 20px 10px;
-    display: flex;
-    width: 75%;
+  padding: 20px 10px 20px 10px;
+  display: flex;
+  width: 75%;
 }
 
 .player-button {
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.board{
-    display: flex;
-    height: 300px;
+.board {
+  display: flex;
+  height: 300px;
 }
 .board-cards {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 }
 
 .board-card-row {
-    display: flex;
-    padding-left: 10px;
-    align-items: center;
-    height: 50%
+  display: flex;
+  padding-left: 10px;
+  align-items: center;
+  height: 50%;
 }
 .board-result {
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.card
-{   
-	border: solid 1px #aaa;
-	border-radius: 4px;
-	width: 40px;
-	height: 60px;
-	background-color: white;
-	margin: 4px;
-    text-align: center;
+.card {
+  border: solid 1px #aaa;
+  border-radius: 4px;
+  width: 40px;
+  height: 60px;
+  background-color: white;
+  margin: 4px;
+  text-align: center;
 }
 
 div.card * {
-    border: none;   
-    height: 50%;
+  border: none;
+  height: 50%;
 }
 
 .card-values {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
-    font-size: x-large;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: x-large;
 }
 
 button {
-    background-color: #818181;
-    border: 1px solid black;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+  background-color: #818181;
+  border: 1px solid black;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 button:disabled {
-    background-color: #b9b9b9;
-    border: none;
+  background-color: #b9b9b9;
+  border: none;
 }
 
 .makao-board {
-    display: flex;
-    height: 300px;
+  display: flex;
+  height: 300px;
 }
 .makao-board-cards {
-    display: flex;
-    padding-left: 10px;
-    align-items: center;
-    justify-content: center;
-    height: 90%
+  display: flex;
+  padding-left: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
 }
 
 .makao-board-pile {
-    width: 40%;
-    display: flex;
-    flex-wrap: wrap;
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .card.active {
-    border: solid 3px green;
-    margin: 2px;
-    margin-top: -5px;
+  border: solid 3px green;
+  margin: 2px;
+  margin-top: -5px;
 }
 .makao-board-dealt {
-    width: 60%;
+  width: 60%;
 }
 .makao-board-info {
-    height: 10%
+  height: 10%;
 }

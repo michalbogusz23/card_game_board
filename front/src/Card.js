@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export function Card(props) {
   let suit;
@@ -14,8 +14,8 @@ export function Card(props) {
   } else if (props.card.suit === "clubs") {
     suit = "♣";
   }
-  const onClick = props.onClick ? () => props.onClick() : undefined
-  const cardClassName = props.card.chosen ? "card active": "card"
+  const onClick = props.onClick ? () => props.onClick() : undefined;
+  const cardClassName = props.card.chosen ? "card active" : "card";
   return (
     <div className={cardClassName} onClick={onClick}>
       <div><span className="card-values">{props.card.value}</span></div>
@@ -24,17 +24,11 @@ export function Card(props) {
   );
 }
 
-
-export function CardPile(props) {  
+export function CardPile(props) {
   const cardPile = props.cards.map((card, index) => {
-    const onClick = props.onClick ? () => props.onClick(index) : undefined
-    return (
-      <Card 
-        key={index} 
-        card={card}
-        onClick={onClick}
-      />
-  )});
-  return cardPile
+    const onClick = props.onClick ? () => props.onClick(index) : undefined;
+    return <Card key={index} card={card} onClick={onClick} />;
+  });
+  return cardPile;
 }
 // Do michała paluśkiewicz do projektu cafe Kuba Sowa, Marek Wawreniuk ma być nowy typ od zarządzania

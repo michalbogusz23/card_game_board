@@ -1,5 +1,5 @@
-import React from 'react';
-import { CardPile } from './Card';
+import React from "react";
+import { CardPile } from "./Card";
 
 export class Board extends React.Component {
   render() {
@@ -15,15 +15,13 @@ export class Board extends React.Component {
       <div className="board">
         <div className="board-cards">
           <div className="board-card-row">
-            <CardPile cards={top_player}/>
+            <CardPile cards={top_player} />
           </div>
           <div className="board-card-row">
-            <CardPile cards={bottom_player}/>
+            <CardPile cards={bottom_player} />
           </div>
         </div>
-        <div className="board-result">
-          {collectButton}
-        </div>
+        <div className="board-result">{collectButton}</div>
       </div>
     );
   }

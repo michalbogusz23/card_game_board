@@ -1,9 +1,10 @@
-import React from 'react';
-import { CardPile } from '../Card.js';
+import React from "react";
+import { CardPile } from "../Card.js";
 
 export function MakaoBoard(props) {
   const demand = props.rules.demand && "Demand of " + props.rules.demand;
-  const colorChange = props.rules.colorChange && "Color changed to " + props.rules.colorChange
+  const colorChange =
+    props.rules.colorChange && "Color changed to " + props.rules.colorChange;
   return (
     <div className="makao-board">
       <div className="makao-board-dealt">
