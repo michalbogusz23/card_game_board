@@ -11,8 +11,7 @@ export class Player extends React.Component {
           <CardPile 
             cards={cards} 
             clickable={this.props.clickable ? this.props.clickable : null}
-            onClick={this.props.onClick}
-            onCardClick={(i) => this.props.onCardClick(i)}
+            onClick={(i) => this.props.onCardClick(i)}
           />
         </div>
         <div className="player-button">

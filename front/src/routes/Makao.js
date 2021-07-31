@@ -13,6 +13,13 @@ export default class Makao extends React.Component {
       player_cards: preparedCards[0],
       cardsOnTable: cardOnTable,
       stack: preparedCards[1],
+      rules: {
+        whoseTurn: 0,
+        demand: null,
+        colorChange: null,
+        penalty: null,
+        stop: null
+      }
     };
   }
   handleClick(i) {
@@ -68,12 +75,14 @@ export default class Makao extends React.Component {
           clickable={true} 
           onClick={ () => this.handleClick(0) }
           onCardClick={ (i) => this.handleCardClick(0, i) }
+          rules={this.state.rules}
         />
         <Player 
           cards={this.state.player_cards[1]} 
           clickable={true} 
           onClick={ () => this.handleClick(1) }
           onCardClick={ (i) => this.handleCardClick(1, i) }
+          rules={this.state.rules}
         />
         <MakaoBoard stack={this.state.stack} cardsOnTable={this.state.cardsOnTable}/>
         <Player 
@@ -81,12 +90,14 @@ export default class Makao extends React.Component {
           clickable={true} 
           onClick={ () => this.handleClick(2) }
           onCardClick={ (i) => this.handleCardClick(2, i) }
+          rules={this.state.rules}
         />
         <Player 
           cards={this.state.player_cards[3]} 
           clickable={true} 
           onClick={ () => this.handleClick(3) }
           onCardClick={ (i) => this.handleCardClick(3, i) }
+          rules={this.state.rules}
         />
       </div>
     )

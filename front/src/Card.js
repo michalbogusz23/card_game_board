@@ -14,10 +14,10 @@ export function Card(props) {
   } else if (props.card.suit === "clubs") {
     suit = "♣";
   }
-
+  const onClick = props.onClick ? () => props.onClick() : undefined
   const cardClassName = props.card.chosen ? "card active": "card"
   return (
-    <div className={cardClassName} onClick={() => props.onCardClick()}>
+    <div className={cardClassName} onClick={onClick}>
       <div><span className="card-values">{props.card.value}</span></div>
       <div><span className="card-values" style={color}>{suit}</span></div>
     </div>
@@ -25,13 +25,14 @@ export function Card(props) {
 }
 
 
-export function CardPile(props) {
+export function CardPile(props) {  
   const cardPile = props.cards.map((card, index) => {
+    const onClick = props.onClick ? () => props.onClick(index) : undefined
     return (
       <Card 
         key={index} 
         card={card}
-        onCardClick={() => props.onCardClick(index)}
+        onClick={onClick}
       />
   )});
   return cardPile
