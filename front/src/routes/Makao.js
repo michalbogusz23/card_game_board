@@ -8,7 +8,6 @@ export default class Makao extends React.Component {
   constructor(props) {
     super(props);
     let preparedCards = prepareCards(4, 5)
-    console.log(preparedCards[1].pop())
     const cardOnTable = new Array(preparedCards[1].pop())
     this.state = {
       player_cards: preparedCards[0],
@@ -16,15 +15,71 @@ export default class Makao extends React.Component {
       stack: preparedCards[1],
     };
   }
+  handleClick(i) {
+    let player_cards = this.state.player_cards.slice();
+    const stack = this.state.stack.slice();
+    const cardsOnTable = this.state.cardsOnTable.slice();
+
+    let cardsToDraw = player_cards[i].filter(card => card.chosen)
+    const cardsToStay = player_cards[i].filter(card => !card.chosen)
+    player_cards[i] = cardsToStay;
+    cardsToDraw = cardsToDraw.map(card => {
+      card.chosen = false; 
+      return card;
+    })
+    this.setState({
+      player_cards: player_cards,
+      cardsOnTable: cardsToDraw,
+      stack: stack.concat(cardsOnTable)
+    })
+
+  }
+  handleCardClick(player, i) {
+    const player_card = this.state.player_cards[player][i]
+    const board_card = this.state.cardsOnTable.slice(-1)[0]
+    if(this.canBePlayed(board_card, player_card)) {
+      let player_cards = this.state.player_cards.slice();
+      player_cards[player][i].chosen = !player_cards[player][i].chosen
+      this.setState({player_cards: player_cards})
+    } else {
+      return undefined
+    }
+  }
+  canBePlayed(board, player) {
+    if(board.value === player.value || board.suit === player.suit) {
+      return true
+    } else {
+      return false
+    }
+  }
   render() {
-    console.log(this.state.cardsOnTable)
     return (
       <div className="table">
-        <Player cards={this.state.player_cards[0]} clickable={true}/>
-        <Player cards={this.state.player_cards[1]} clickable={true}/>
+        <Player 
+          cards={this.state.player_cards[0]} 
+          clickable={true} 
+          onClick={ () => this.handleClick(0) }
+          onCardClick={ (i) => this.handleCardClick(0, i) }
+        />
+        <Player 
+          cards={this.state.player_cards[1]} 
+          clickable={true} 
+          onClick={ () => this.handleClick(1) }
+          onCardClick={ (i) => this.handleCardClick(1, i) }
+        />
         <MakaoBoard stack={this.state.stack} cardsOnTable={this.state.cardsOnTable}/>
-        <Player cards={this.state.player_cards[2]} clickable={true}/>
-        <Player cards={this.state.player_cards[3]} clickable={true}/>
+        <Player 
+          cards={this.state.player_cards[2]} 
+          clickable={true} 
+          onClick={ () => this.handleClick(2) }
+          onCardClick={ (i) => this.handleCardClick(2, i) }
+        />
+        <Player 
+          cards={this.state.player_cards[3]} 
+          clickable={true} 
+          onClick={ () => this.handleClick(3) }
+          onCardClick={ (i) => this.handleCardClick(3, i) }
+        />
       </div>
     )
   }

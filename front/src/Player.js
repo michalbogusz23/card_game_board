@@ -8,7 +8,12 @@ export class Player extends React.Component {
     return (
       <div className="player">
         <div className="player-cards">
-          <CardPile cards={cards} clickable={this.props.clickable ? this.props.clickable : null}/>
+          <CardPile 
+            cards={cards} 
+            clickable={this.props.clickable ? this.props.clickable : null}
+            onClick={this.props.onClick}
+            onCardClick={(i) => this.props.onCardClick(i)}
+          />
         </div>
         <div className="player-button">
           <button onClick={() => this.props.onClick()} disabled={canCollect}>DRAW</button>

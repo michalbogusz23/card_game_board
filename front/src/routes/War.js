@@ -71,7 +71,6 @@ export default class War extends React.Component {
   }
 
   render() {
-    console.log(this.state.player_cards)
     return (
       <div className="table">
         <Player 

@@ -25,7 +25,7 @@ function getDeck() {
 	var deck = [];
 	for(var i = 0; i < suits.length; i++) {
 		for(var x = 0; x < values.length; x++) {
-			var card = {value: values[x], suit: suits[i]};
+			var card = {value: values[x], suit: suits[i], chosen: false};
 			deck.push(card);
 		}
 	}
