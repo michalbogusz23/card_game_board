@@ -17,19 +17,19 @@ export default class Makao extends React.Component {
         whoseTurn: 0,
         demand: null,
         colorChange: null,
-        penalty: null,
+        penalty: 1,
         stop: null,
       },
     };
   }
-  handleLayOutClick(i) {
+  handleLayOutClick(player) {
     let player_cards = this.state.player_cards.slice();
     const stack = this.state.stack.slice();
     const cardsOnTable = this.state.cardsOnTable.slice();
 
-    let cardsToDraw = player_cards[i].filter((card) => card.chosen);
-    const cardsToStay = player_cards[i].filter((card) => !card.chosen);
-    player_cards[i] = cardsToStay;
+    let cardsToDraw = player_cards[player].filter((card) => card.chosen);
+    const cardsToStay = player_cards[player].filter((card) => !card.chosen);
+    player_cards[player] = cardsToStay;
     cardsToDraw = cardsToDraw.map((card) => {
       card.chosen = false;
       return card;
@@ -39,6 +39,18 @@ export default class Makao extends React.Component {
       cardsOnTable: cardsToDraw,
       stack: stack.concat(cardsOnTable),
     });
+  }
+  handleCollectClick(player) {
+    let playerCards = this.state.player_cards.slice()
+    let stack = this.state.stack.slice()
+    const cardToCollect = this.state.rules.penalty
+    for(let i = 0; i < cardToCollect; i++) {
+      playerCards[player].push(stack.pop())
+    }
+    this.setState({
+      player_cards: playerCards,
+      stack: stack
+    })
   }
   handleCardClick(player, i) {
     const player_card = this.state.player_cards[player][i];
@@ -79,7 +91,7 @@ export default class Makao extends React.Component {
           cards={this.state.player_cards[0]}
           clickable={true}
           onLayOutClick={() => this.handleLayOutClick(0)}
-          onCollectClick={() => this.handleCollectCklick(0)}
+          onCollectClick={() => this.handleCollectClick(0)}
           onCardClick={(i) => this.handleCardClick(0, i)}
           rules={this.state.rules}
         />
@@ -87,7 +99,7 @@ export default class Makao extends React.Component {
           cards={this.state.player_cards[1]}
           clickable={true}
           onLayOutClick={() => this.handleLayOutClick(1)}
-          onCollectClick={() => this.handleCollectCklick(1)}
+          onCollectClick={() => this.handleCollectClick(1)}
           onCardClick={(i) => this.handleCardClick(1, i)}
           rules={this.state.rules}
         />
@@ -100,7 +112,7 @@ export default class Makao extends React.Component {
           cards={this.state.player_cards[2]}
           clickable={true}
           onLayOutClick={() => this.handleLayOutClick(2)}
-          onCollectClick={() => this.handleCollectCklick(3)}
+          onCollectClick={() => this.handleCollectClick(3)}
           onCardClick={(i) => this.handleCardClick(2, i)}
           rules={this.state.rules}
         />
@@ -108,7 +120,7 @@ export default class Makao extends React.Component {
           cards={this.state.player_cards[3]}
           clickable={true}
           onLayOutClick={() => this.handleLayOutClick(3)}
-          onCollectClick={() => this.handleCollectCklick(3)}
+          onCollectClick={() => this.handleCollectClick(3)}
           onCardClick={(i) => this.handleCardClick(3, i)}
           rules={this.state.rules}
         />
