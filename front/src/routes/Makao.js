@@ -39,6 +39,7 @@ export default class Makao extends React.Component {
       cardsOnTable: cardsToDraw,
       stack: stack.concat(cardsOnTable),
     });
+    this.changeTurn(cardsToDraw.slice(-1)[0])
   }
   handleCollectClick(player) {
     let playerCards = this.state.player_cards.slice()
@@ -51,6 +52,7 @@ export default class Makao extends React.Component {
       player_cards: playerCards,
       stack: stack
     })
+    this.changeTurn()
   }
   handleCardClick(player, i) {
     const player_card = this.state.player_cards[player][i];
@@ -62,6 +64,19 @@ export default class Makao extends React.Component {
     } else {
       return undefined;
     }
+  }
+  changeTurn(card=null) {
+    const currentTurn = this.state.rules.whoseTurn;
+    const amountOfPlayers = this.state.player_cards.length;
+    let turn;
+    if(card && !(card.value === "K" && card.suit === "spades")) {
+      turn = currentTurn === amountOfPlayers - 1 ? 0 : currentTurn + 1
+    } else {
+      turn = currentTurn === 0 ? amountOfPlayers - 1 : currentTurn - 1
+    }
+    let rules = this.state.rules
+    rules.whoseTurn = turn
+    this.setState({rules: rules})
   }
   canBePlayed(board, player) {
     if (board.value === player.value || board.suit === player.suit) {
@@ -112,7 +127,7 @@ export default class Makao extends React.Component {
           cards={this.state.player_cards[2]}
           clickable={true}
           onLayOutClick={() => this.handleLayOutClick(2)}
-          onCollectClick={() => this.handleCollectClick(3)}
+          onCollectClick={() => this.handleCollectClick(2)}
           onCardClick={(i) => this.handleCardClick(2, i)}
           rules={this.state.rules}
         />
