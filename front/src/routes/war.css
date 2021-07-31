@@ -85,12 +85,12 @@ button:disabled {
     display: flex;
     height: 300px;
 }
-.makao-board-dealt {
-    width: 60%;
+.makao-board-cards {
     display: flex;
     padding-left: 10px;
     align-items: center;
     justify-content: center;
+    height: 90%
 }
 
 .makao-board-pile {
@@ -102,4 +102,10 @@ button:disabled {
     border: solid 3px green;
     margin: 2px;
     margin-top: -5px;
+}
+.makao-board-dealt {
+    width: 60%;
+}
+.makao-board-info {
+    height: 10%
 }

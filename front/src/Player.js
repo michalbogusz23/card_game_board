@@ -4,7 +4,12 @@ import { CardPile } from './Card';
 export class Player extends React.Component {
   render() {
     const cards = this.props.cards;
-    const canCollect = this.props.canCollect;
+    const cardsToLayOutAmount = cards.filter(card => card.chosen).length
+    const penalty = this.props.rules.penalty && "Collect " + this.props.rules.penalty + " cards"
+    const layOutBtn = cardsToLayOutAmount ? 
+          <button onClick={() => this.props.onLayOutClick()}>Lay out {cardsToLayOutAmount} cards</button> : undefined
+    const collectBtn = penalty && 
+          <button onClick={() => this.props.onCollectClick()}>{penalty}</button>
     return (
       <div className="player">
         <div className="player-cards">
@@ -15,7 +20,8 @@ export class Player extends React.Component {
           />
         </div>
         <div className="player-button">
-          <button onClick={() => this.props.onClick()} disabled={canCollect}>DRAW</button>
+          {layOutBtn}
+          {collectBtn}
         </div>
       </div>
 

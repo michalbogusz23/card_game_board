@@ -1,8 +1,8 @@
 import React from 'react';
 import { Player } from '../Player';
 import { prepareCards } from '../Deck.js'
-import { CardPile } from '../Card.js'
 import './war.css';
+import { MakaoBoard } from './MakaoBoard';
 
 export default class Makao extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class Makao extends React.Component {
       }
     };
   }
-  handleClick(i) {
+  handleLayOutClick(i) {
     let player_cards = this.state.player_cards.slice();
     const stack = this.state.stack.slice();
     const cardsOnTable = this.state.cardsOnTable.slice();
@@ -73,29 +73,37 @@ export default class Makao extends React.Component {
         <Player 
           cards={this.state.player_cards[0]} 
           clickable={true} 
-          onClick={ () => this.handleClick(0) }
+          onLayOutClick={ () => this.handleLayOutClick(0) }
+          onCollectClick={ () => this.handleCollectCklick(0)}
           onCardClick={ (i) => this.handleCardClick(0, i) }
           rules={this.state.rules}
         />
         <Player 
           cards={this.state.player_cards[1]} 
           clickable={true} 
-          onClick={ () => this.handleClick(1) }
+          onLayOutClick={ () => this.handleLayOutClick(1) }
+          onCollectClick={ () => this.handleCollectCklick(1)}
           onCardClick={ (i) => this.handleCardClick(1, i) }
           rules={this.state.rules}
         />
-        <MakaoBoard stack={this.state.stack} cardsOnTable={this.state.cardsOnTable}/>
+        <MakaoBoard 
+          stack={this.state.stack} 
+          cardsOnTable={this.state.cardsOnTable}
+          rules={this.state.rules}
+        />
         <Player 
           cards={this.state.player_cards[2]} 
           clickable={true} 
-          onClick={ () => this.handleClick(2) }
+          onLayOutClick={ () => this.handleLayOutClick(2) }
+          onCollectClick={ () => this.handleCollectCklick(3)}
           onCardClick={ (i) => this.handleCardClick(2, i) }
           rules={this.state.rules}
         />
         <Player 
           cards={this.state.player_cards[3]} 
           clickable={true} 
-          onClick={ () => this.handleClick(3) }
+          onLayOutClick={ () => this.handleLayOutClick(3) }
+          onCollectClick={ () => this.handleCollectCklick(3)}
           onCardClick={ (i) => this.handleCardClick(3, i) }
           rules={this.state.rules}
         />
@@ -104,15 +112,3 @@ export default class Makao extends React.Component {
   }
 }
 
-function MakaoBoard(props) {
-  return (
-    <div className="makao-board">
-      <div className="makao-board-dealt">
-        <CardPile cards={props.cardsOnTable}></CardPile>
-      </div>
-      <div className="makao-board-pile">
-        <CardPile cards={props.stack}></CardPile>
-      </div>
-    </div>
-  )
-}
