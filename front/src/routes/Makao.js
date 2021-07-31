@@ -47,10 +47,18 @@ export default class Makao extends React.Component {
   }
   canBePlayed(board, player) {
     if(board.value === player.value || board.suit === player.suit) {
+      if((this.isPenalty(board) && !this.isPenalty(player)) || (board.value === "4" && player.value !== "4")) {
+        return false
+      }
       return true
     } else {
       return false
     }
+  }
+  isPenalty(card) {
+    if(["2", "3"].includes(card.value) || (["hearts", "spades"].includes(card.suit) && card.value === "K"))
+      return true;
+    return false
   }
   render() {
     return (
