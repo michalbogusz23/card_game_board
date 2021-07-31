@@ -8,11 +8,11 @@ export default class Makao extends React.Component {
   constructor(props) {
     super(props);
     let preparedCards = prepareCards(4, 5);
-    const cardOnTable = new Array(preparedCards[1].pop());
+    const cardsOnTable = this.chooseCardOnTable(preparedCards[1])
     this.state = {
       player_cards: preparedCards[0],
-      cardsOnTable: cardOnTable,
-      stack: preparedCards[1],
+      cardsOnTable: cardsOnTable[0],
+      stack: cardsOnTable[1],
       rules: {
         whoseTurn: 0,
         demand: null,
@@ -40,6 +40,7 @@ export default class Makao extends React.Component {
       stack: stack.concat(cardsOnTable),
     });
     this.changeTurn(cardsToDraw.slice(-1)[0])
+    this.applySpecialCards(cardsToDraw.slice(-1)[0])
   }
   handleCollectClick(player) {
     let playerCards = this.state.player_cards.slice()
@@ -64,6 +65,23 @@ export default class Makao extends React.Component {
     } else {
       return undefined;
     }
+  }
+  applySpecialCards(card) {
+    let rules = this.state.rules
+    if(this.isPenalty(card)) {
+      console.log('siema ściema')
+      if(card.value === "K") {
+        rules.penalty += 5
+      }
+      rules.penalty += parseInt(rules.penalty)
+    } else if (card.value === "J") {
+      ;
+    } else if (card.value === "A") { 
+      ;
+    } else if (card.value === "4") {
+      rules.stop += 1
+    }
+    this.setState({rules: rules})
   }
   changeTurn(card=null) {
     const currentTurn = this.state.rules.whoseTurn;
@@ -95,9 +113,15 @@ export default class Makao extends React.Component {
     if (
       ["2", "3"].includes(card.value) ||
       (["hearts", "spades"].includes(card.suit) && card.value === "K")
-    )
+    ) {
       return true;
+    }
     return false;
+  }
+  chooseCardOnTable(cards) {
+    let stack = cards
+    const cardOnTable = new Array(stack.find(card => !["2","3","J","A","K"].includes(card.value)));
+    return [cardOnTable, stack.filter(card => card !== cardOnTable[0])]
   }
   render() {
     return (
