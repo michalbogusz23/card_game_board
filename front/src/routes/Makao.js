@@ -69,10 +69,10 @@ export default class Makao extends React.Component {
     const currentTurn = this.state.rules.whoseTurn;
     const amountOfPlayers = this.state.player_cards.length;
     let turn;
-    if(card && !(card.value === "K" && card.suit === "spades")) {
-      turn = currentTurn === amountOfPlayers - 1 ? 0 : currentTurn + 1
-    } else {
+    if(card && card.value === "K" && card.suit === "spades") {
       turn = currentTurn === 0 ? amountOfPlayers - 1 : currentTurn - 1
+    } else {
+      turn = currentTurn === amountOfPlayers - 1 ? 0 : currentTurn + 1
     }
     let rules = this.state.rules
     rules.whoseTurn = turn
@@ -109,6 +109,7 @@ export default class Makao extends React.Component {
           onCollectClick={() => this.handleCollectClick(0)}
           onCardClick={(i) => this.handleCardClick(0, i)}
           rules={this.state.rules}
+          playerNo={0}
         />
         <Player
           cards={this.state.player_cards[1]}
@@ -117,6 +118,7 @@ export default class Makao extends React.Component {
           onCollectClick={() => this.handleCollectClick(1)}
           onCardClick={(i) => this.handleCardClick(1, i)}
           rules={this.state.rules}
+          playerNo={1}
         />
         <MakaoBoard
           stack={this.state.stack}
@@ -130,6 +132,7 @@ export default class Makao extends React.Component {
           onCollectClick={() => this.handleCollectClick(2)}
           onCardClick={(i) => this.handleCardClick(2, i)}
           rules={this.state.rules}
+          playerNo={2}
         />
         <Player
           cards={this.state.player_cards[3]}
@@ -138,6 +141,7 @@ export default class Makao extends React.Component {
           onCollectClick={() => this.handleCollectClick(3)}
           onCardClick={(i) => this.handleCardClick(3, i)}
           rules={this.state.rules}
+          playerNo={3}
         />
       </div>
     );

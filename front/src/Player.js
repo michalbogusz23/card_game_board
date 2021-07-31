@@ -8,20 +8,25 @@ export class Player extends React.Component {
     const penalty =
       this.props.rules.penalty &&
       "Collect " + this.props.rules.penalty + " cards";
-    const layOutBtn = cardsToLayOutAmount ? (
+    const isMyTurn = this.props.playerNo === this.props.rules.whoseTurn ? true : false
+    const clickable = isMyTurn && this.props.clickable ? true : false
+
+    const layOutBtn = cardsToLayOutAmount && isMyTurn ? (
       <button onClick={() => this.props.onLayOutClick()}>
         Lay out {cardsToLayOutAmount} cards
       </button>
     ) : undefined;
-    const collectBtn = penalty && (
+
+    const collectBtn = penalty && isMyTurn && (
       <button onClick={() => this.props.onCollectClick()}>{penalty}</button>
     );
+
     return (
       <div className="player">
         <div className="player-cards">
           <CardPile
             cards={cards}
-            clickable={this.props.clickable ? this.props.clickable : null}
+            clickable={clickable}
             onClick={(i) => this.props.onCardClick(i)}
           />
         </div>
