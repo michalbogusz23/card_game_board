@@ -45,13 +45,16 @@ export default class Makao extends React.Component {
   handleCollectClick(player) {
     let playerCards = this.state.player_cards.slice()
     let stack = this.state.stack.slice()
+    let rules = this.state.rules
+    rules.penalty = 1;
     const cardToCollect = this.state.rules.penalty
     for(let i = 0; i < cardToCollect; i++) {
       playerCards[player].push(stack.pop())
     }
     this.setState({
       player_cards: playerCards,
-      stack: stack
+      stack: stack,
+      rules: rules
     })
     this.changeTurn()
   }
@@ -69,17 +72,18 @@ export default class Makao extends React.Component {
   applySpecialCards(card) {
     let rules = this.state.rules
     if(this.isPenalty(card)) {
-      console.log('siema ściema')
       if(card.value === "K") {
         rules.penalty += 5
       }
       rules.penalty += parseInt(rules.penalty)
     } else if (card.value === "J") {
       ;
-    } else if (card.value === "A") { 
+    } else if (card.value === "A") {
       ;
     } else if (card.value === "4") {
       rules.stop += 1
+    } else {
+      rules.penalty = 1;
     }
     this.setState({rules: rules})
   }
