@@ -108,3 +108,22 @@ button:disabled {
 .makao-board-info {
   height: 10%;
 }
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.center-screen-row {
+  height: 150px;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-screen-row input {
+  padding: 10px;
+  margin: 10px;
+}

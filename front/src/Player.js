@@ -1,5 +1,6 @@
 import React from "react";
 import { CardPile } from "./Card";
+import { Card } from "./Card";
 
 export class Player extends React.Component {
   render() {
@@ -37,4 +38,23 @@ export class Player extends React.Component {
       </div>
     );
   }
+}
+
+export function WarPlayer(props) {
+    const cards = props.cards;
+    const canCollect = props.canCollect
+
+    return (
+        <div className="player">
+            <div className="player-cards">
+                <CardPile
+                    cards={cards}
+                />
+            </div>
+            <div className="player-button">
+                <button onClick={() => props.onClick()} disabled={canCollect}>LAY OUT</button>
+            </div>
+        </div>
+
+    )
 }

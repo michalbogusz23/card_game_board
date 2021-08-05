@@ -4,23 +4,21 @@ import ReactDOM from "react-dom";
 
 const War = lazy(() => import("./routes/War"));
 const Makao = lazy(() => import("./routes/Makao"));
+const Start = lazy(() => import("./routes/Start"))
 
 const App = () => (
   <Router>
     <nav>
       <ul>
-        <li>
-          <Link to="/war">War</Link>
-        </li>
-        <li>
-          <Link to="/makao">Makao</Link>
-        </li>
+        <li><Link to="/war">War</Link></li>
+        <li><Link to="/makao">Makao</Link></li>
       </ul>
     </nav>
     <Suspense fallback={<div>Wczytywanie...</div>}>
       <Switch>
         <Route exact path="/war" component={War} />
         <Route exact path="/makao" component={Makao} />
+        <Route exact path="/" component={Start} />
       </Switch>
     </Suspense>
   </Router>

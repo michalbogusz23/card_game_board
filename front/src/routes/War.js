@@ -2,7 +2,7 @@ import React from "react";
 import "./war.css";
 import { prepareCards } from "../Deck.js";
 import { shuffle } from "../Deck";
-import { Player } from "../Player";
+import { WarPlayer } from "../Player";
 import { Board } from "../Board";
 
 export default class War extends React.Component {
@@ -80,7 +80,7 @@ export default class War extends React.Component {
   render() {
     return (
       <div className="table">
-        <Player
+        <WarPlayer
           cards={this.state.player_cards[0]}
           onClick={() => this.handleClick()}
           canCollect={this.state.canCollect}
@@ -90,7 +90,7 @@ export default class War extends React.Component {
           canCollect={this.state.canCollect}
           onClick={() => this.handleCollectClick()}
         />
-        <Player
+        <WarPlayer
           cards={this.state.player_cards[1]}
           onClick={() => this.handleClick()}
           canCollect={this.state.canCollect}
