@@ -4,10 +4,17 @@ import { prepareCards } from "../Deck.js";
 import { shuffle } from "../Deck";
 import { WarPlayer } from "../Player";
 import { Board } from "../Board";
+import io from "socket.io-client";
+
+const socket = io('http://localhost:3003');
+
 
 export default class War extends React.Component {
   constructor(props) {
     super(props);
+    socket.on("connect", () => {
+      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
     this.state = {
       player_cards: prepareCards(2),
       ingame_cards: Array.from(Array(2), () => new Array(0)),
