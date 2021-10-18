@@ -9,7 +9,7 @@ const io = require("socket.io")(server, {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello WorldDupa!')
 })
 
 server.listen(3003, () => {
