@@ -9,8 +9,8 @@ import { Board } from "../Board";
 export default class War extends React.Component {
   constructor(props) {
     super(props);
-    // socket.on("connect", () => {
-    //   console.log(socket.id);
+    // modules.on("connect", () => {
+    //   console.log(modules.id);
     // });
     this.state = {
       player_cards: prepareCards(2),
