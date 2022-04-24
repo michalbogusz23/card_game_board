@@ -1,61 +1,17 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import "./war.css";
-import {Link} from "react-router-dom";
+import StartScreen from "../StartScreen";
+import GamesList from "../GamesList";
 
-
-export default class Start extends React.Component {
-
-
-    render() {
-        return (
-            <div>
-                <StartScreen/>
-            </div>
-        )
+export default function Start() {
+    const [step, setStep] = useState(0)
+    function handleChangeStep(step) {
+        setStep(step);
     }
+    return (
+        <div>
+            {step === 0 && <StartScreen onChangeStep={handleChangeStep}/>}
+            {step === 1 && <GamesList/>}
+        </div>
+    )
 }
-
-
-class StartScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: ''};
-    }
-
-    render() {
-        return <div className="center-screen">
-            <div className="center-screen-row">
-                <input type="text"
-                       name="name"
-                       placeholder="GAME CODE"
-                       value={this.state.value}
-                       onChange={e => this.handleChange(e)}
-                />
-                <Link to="/makao">ENTER GAME</Link>
-            </div>
-            <div className="center-screen-row">
-                <button className="btn-create-game">Create new game</button>
-            </div>
-        </div>;
-    }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-}
-
-class GamesList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            games: ["makao", "war"]
-        }
-    }
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
-    }

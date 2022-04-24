@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import ReactDOM from "react-dom";
+import {SocketContext, socket} from "./context";
 
 const War = lazy(() => import("./routes/War"));
 const Makao = lazy(() => import("./routes/Makao"));
@@ -16,9 +17,11 @@ const App = () => (
     </nav>
     <Suspense fallback={<div>Wczytywanie...</div>}>
       <Switch>
-        <Route exact path="/war" component={War} />
-        <Route exact path="/makao" component={Makao} />
-        <Route exact path="/" component={Start} />
+          <SocketContext.Provider value={socket}>
+              <Route exact path="/" component={Start} />
+              <Route exact path="/war" component={War} />
+              <Route exact path="/makao" component={Makao} />
+          </SocketContext.Provider>
       </Switch>
     </Suspense>
   </Router>

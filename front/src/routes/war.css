@@ -127,3 +127,32 @@ button:disabled {
   padding: 10px;
   margin: 10px;
 }
+
+.game-list {
+  display: flex;
+  height: 350px;
+  width: 600px;
+  size: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-tile {
+  background-color: #818181;
+  border: 1px solid black;
+  color: white;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+}
+
+.choose-game {
+  height: 50px;
+  width: 600px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

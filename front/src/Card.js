@@ -31,4 +31,3 @@ export function CardPile(props) {
   });
   return cardPile;
 }
-// Do michała paluśkiewicz do projektu cafe Kuba Sowa, Marek Wawreniuk ma być nowy typ od zarządzania

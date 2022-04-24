@@ -1,6 +1,5 @@
 import React from "react";
 import { CardPile } from "./Card";
-import { Card } from "./Card";
 
 export class Player extends React.Component {
   render() {
