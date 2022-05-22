@@ -1,9 +1,8 @@
 module.exports = class Room {
-    constructor(roomId, capacity, io) {
+    constructor(roomId, capacity) {
         this.id = roomId;
         this.capacity = capacity
         this.players = new Map();
-        this.io = io;
     }
 
     addPlayer(player) {

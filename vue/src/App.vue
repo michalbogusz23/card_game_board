@@ -26,6 +26,6 @@ export default {
 </script>
 <style lang="scss">
 body.body--dark {
-  background: #333333;
+  background: #666666 !important;
 }
 </style>

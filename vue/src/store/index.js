@@ -4,9 +4,12 @@ export default createStore({
   modules: {
     socket
   },
-  state() {
-    return {
+  state: {
+    username: "",
+  },
+  mutations: {
+    SET_USERNAME(state): {
 
     }
-  }
+  },
 })

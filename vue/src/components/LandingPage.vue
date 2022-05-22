@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="flex flex-center q-pa-xl">
-        <q-btn outline>
+        <q-btn outline @click="newGame">
           Create new game
         </q-btn>
       </div>
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'LandingPage',
 
   data() {
     return {
@@ -40,6 +40,11 @@ export default {
   mounted() {
     this.name = Math.floor(Math.random() * 100_000);
     this.$socket.client.request("create room", {roomId: "siema", roomCapacity: 13},);
+  },
+  methods: {
+    newGame() {
+      this.$router.push({ path: "/gameList" });
+    }
   },
 }
 

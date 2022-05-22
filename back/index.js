@@ -24,9 +24,8 @@ io.on('connection', (socket) => {
         console.log('dupa')
     })
     socket.on("create room", ({roomId, roomCapacity}) => {
-        roomList.set(roomId, new Room(roomId, roomCapacity, io))
+        roomList.set(roomId, new Room(roomId, roomCapacity))
         console.log(`Room: ${roomId} has been created, ${roomCapacity}`)
-        socket.emit("hej", roomCapacity);
     })
     socket.on("join room", (userName, roomId) => {
         socket.join(roomId)
