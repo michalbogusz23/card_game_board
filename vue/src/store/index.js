@@ -8,8 +8,8 @@ export default createStore({
     username: "",
   },
   mutations: {
-    SET_USERNAME(state): {
-
-    }
+    SET_USERNAME(state, { username }) {
+      state.username = username
+    },
   },
 })

@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center column">
-    <div class="border">
-      <div class="border">
+    <div class="shadow-10 bg-grey-9">
+      <div>
         <div class="flex flex-center">
           <q-input outlined v-model="gameCode" label="GAME CODE"></q-input>
           <q-btn outline>Join game</q-btn>
@@ -51,7 +51,4 @@ export default {
 </script>
 
 <style lang="scss">
-.border {
-  border: solid 1px white;
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <q-page class="flex flex-center column">
-    <div @click="newGame('war')" class="game-button flex justify-center items-center">War</div>
-    <div @click="newGame('makao')" class="game-button flex justify-center items-center">Makao</div>
+  <q-page class="flex flex-center">
+    <div @click="newGame('war')" class="shadow-10 bg-grey-9 game-button">War</div>
+    <div @click="newGame('makao')" class="shadow-10 bg-grey-9 game-button">Makao</div>
   </q-page>
 </template>
 
@@ -30,7 +30,9 @@ export default {
 
 <style lang="scss">
 .game-button {
-  border: solid 1px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100px;
   height: 100px;
 }
