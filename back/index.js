@@ -23,9 +23,10 @@ io.on('connection', (socket) => {
     socket.on('connection', () => {
         console.log('dupa')
     })
-    socket.on("create room", ({roomId, roomCapacity}) => {
+    socket.on("create room", ({roomId, roomCapacity}, callback) => {
         roomList.set(roomId, new Room(roomId, roomCapacity))
         console.log(`Room: ${roomId} has been created, ${roomCapacity}`)
+        callback("OK")
     })
     socket.on("join room", (userName, roomId) => {
         socket.join(roomId)

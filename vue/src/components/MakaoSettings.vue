@@ -1,5 +1,4 @@
 <template>
-  <q-page class="flex flex-center column">
     <div class="shadow-10 bg-grey-9 q-pa-lg">
       <q-input class="q-mb-xl" v-model="username" label="Your name"></q-input>
       <q-select
@@ -10,7 +9,6 @@
       </q-select>
       <q-btn outline @click="createGame">Create game</q-btn>
     </div>
-  </q-page>
 </template>
 
 <style>
@@ -19,7 +17,7 @@
 <script>
 export default {
   name: 'MakaoSettings',
-
+  emits: ["makaoCreated"],
   data() {
     return {
       playersAmount: "4",
@@ -29,11 +27,13 @@ export default {
     }
   },
   methods: {
-    createGame() {
-      this.$socket.client.emit("create room", {
+    async createGame() {
+      await this.$socket.client.request("create room", {
         roomId: this.gameId,
         roomCapacity: this.playersAmount},
       );
+      this.$emit("makaoCreated")
+      console.log("hej")
     },
   },
 }
