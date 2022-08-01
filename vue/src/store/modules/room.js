@@ -15,7 +15,7 @@ export default {
   },
 
   actions: {
-    socket_joinedGame({ dispatch, commit }, {name}) {
+    socket_joinedGame(_, {name}) {
       console.log("To tu", name);
     }
   },
