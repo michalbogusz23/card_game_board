@@ -23,14 +23,19 @@ io.on('connection', (socket) => {
     socket.on('connection', () => {
         console.log('dupa')
     })
-    socket.on("create room", ({roomId, roomCapacity}, callback) => {
-        roomList.set(roomId, new Room(roomId, roomCapacity))
-        console.log(`Room: ${roomId} has been created, ${roomCapacity}`)
+    socket.on("create room", ({roomId, roomCapacity, game}, callback) => {
+        roomList.set(roomId, new Room(roomId, roomCapacity, game))
+        console.log(`Room: ${roomId} has been created, ${roomCapacity}, ${game}`)
         callback("OK")
     })
-    socket.on("join room", (userName, roomId) => {
+    socket.on("join room", ({userName, roomId}, callback) => {
         socket.join(roomId)
-        roomList.get(roomId).addPlayer(new Player(socket.id, userName))
+        const room = roomList.get(roomId)
+        room.addPlayer(new Player(socket.id, userName))
+
         console.log(`User: ${userName} has joined room: ${roomId}`)
+
+        callback(room.getRoomInfo())
+        socket.to(roomId).emit("joinedGame", {"name": userName})
     })
 });

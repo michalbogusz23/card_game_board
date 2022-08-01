@@ -15,27 +15,47 @@
 </style>
 
 <script>
+import {mapState, mapMutations} from "vuex";
+
 export default {
   name: 'MakaoSettings',
-  emits: ["makaoCreated"],
   data() {
     return {
       playersAmount: "4",
-      gameId: Math.floor(Math.random() * 1_000_000),
+      gameId: "" + Math.floor(Math.random() * 1_000_000),
       options: [1, 2, 3, 4],
       username: "",
     }
   },
+  computed: {
+    ...mapState({
+      name: "username"
+    })
+  },
   methods: {
+    ...mapMutations({
+      createMakao: "makao/create",
+      setUsername: "setUsername",
+      setCapacity: "room/setCapacity",
+    }),
     async createGame() {
       await this.$socket.client.request("create room", {
         roomId: this.gameId,
-        roomCapacity: this.playersAmount},
-      );
-      this.$emit("makaoCreated")
-      console.log("hej")
+        roomCapacity: this.playersAmount,
+        game: "makao"
+      });
+      await this.$socket.client.request("join room", {
+        userName: this.name,
+        roomId: this.gameId
+      });
+      this.setCapacity(this.playersAmount)
+      this.setUsername({username: this.username})
+      this.createMakao();
     },
   },
+  mounted() {
+    this.username = this.name
+  }
 }
 </script>
 

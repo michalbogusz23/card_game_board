@@ -3,4 +3,10 @@ module.exports = class Peer {
         this.id = id;
         this.name = name;
     }
+
+    getPlayerInfo() {
+        return {
+            "name": this.name
+        }
+    }
 }

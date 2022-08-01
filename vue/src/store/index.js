@@ -1,14 +1,18 @@
 import { createStore } from "vuex";
 import socket from "@/store/modules/socket";
+import room from "@/store/modules/room";
+import makao from "@/store/modules/makao";
 export default createStore({
   modules: {
-    socket
+    socket,
+    room,
+    makao
   },
   state: {
     username: "",
   },
   mutations: {
-    SET_USERNAME(state, { username }) {
+    setUsername(state, { username }) {
       state.username = username
     },
   },
