@@ -10,10 +10,14 @@ export default createStore({
   },
   state: {
     username: "",
+    id: "",
   },
   mutations: {
     setUsername(state, { username }) {
       state.username = username
     },
+    setId(state, { id }) {
+      state.id = id
+    }
   },
 })

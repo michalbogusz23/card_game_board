@@ -37,6 +37,8 @@ export default {
       createMakao: "makao/create",
       setUsername: "setUsername",
       setCapacity: "room/setCapacity",
+      setPlayers: "room/setPlayers",
+      setId: "setId",
     }),
     async createGame() {
       await this.$socket.client.request("create room", {
@@ -44,12 +46,15 @@ export default {
         roomCapacity: this.playersAmount,
         game: "makao"
       });
-      await this.$socket.client.request("join room", {
-        userName: this.name,
+      const roomInfo = await this.$socket.client.request("join room", {
+        userName: this.username,
         roomId: this.gameId
       });
-      this.setCapacity(this.playersAmount)
+      console.log("xdddd", roomInfo)
+      this.setPlayers({players: roomInfo.players})
+      this.setCapacity({capacity: roomInfo.capacity})
       this.setUsername({username: this.username})
+      this.setId({id: this.$socket.client.id})
       this.createMakao();
     },
   },

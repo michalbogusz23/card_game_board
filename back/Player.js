@@ -6,6 +6,7 @@ module.exports = class Peer {
 
     getPlayerInfo() {
         return {
+            "id": this.id,
             "name": this.name
         }
     }

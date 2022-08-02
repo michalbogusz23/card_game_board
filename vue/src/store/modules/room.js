@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     capacity: 0,
-    players: {}
+    players: {},
   },
 
   mutations: {
@@ -11,12 +11,19 @@ export default {
     },
     setPlayers(state, { players }) {
       state.players = players
-    }
+    },
   },
 
   actions: {
-    socket_joinedGame(_, {name}) {
+    socket_joinedGame({commit}, { players }) {
+      commit("setPlayers", { players })
       console.log("To tu", name);
-    }
+    },
   },
+  getters: {
+    getPlayerName: (state) => (id) => {
+      console.log("kiwi", state.players, id)
+      return state.players[id].name
+    }
+  }
 };

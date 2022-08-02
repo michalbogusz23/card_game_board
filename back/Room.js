@@ -17,14 +17,19 @@ module.exports = class Room {
     }
 
     getRoomInfo() {
-        const players = []
-        this.players.forEach((player) => {
-            players.push(player.getPlayerInfo())
-        })
         return {
             "capacity": this.capacity,
             "game": this.game,
-            "players": players
+            "players": this.getPlayers()
         }
+    }
+
+    getPlayers() {
+        const players = {}
+        this.players.forEach((player) => {
+            const playerInfo = player.getPlayerInfo()
+            players[playerInfo.id] = playerInfo
+        })
+        return players;
     }
 }

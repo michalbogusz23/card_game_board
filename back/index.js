@@ -33,9 +33,9 @@ io.on('connection', (socket) => {
         const room = roomList.get(roomId)
         room.addPlayer(new Player(socket.id, userName))
 
-        console.log(`User: ${userName} has joined room: ${roomId}`)
+        console.log(`User: ${userName} ${socket.id} has joined room: ${roomId}`)
 
         callback(room.getRoomInfo())
-        socket.to(roomId).emit("joinedGame", {"name": userName})
+        socket.to(roomId).emit("joinedGame", {players: room.getPlayers()})
     })
 });

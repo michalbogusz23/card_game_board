@@ -42,7 +42,8 @@ export default {
       setCapacity: "room/setCapacity",
       setPlayers: "room/setPlayers",
       createMakao: "makao/create",
-      setUsername: "setUsername"
+      setUsername: "setUsername",
+      setId: "setId",
     }),
     newGame() {
       this.setUsername({username: this.name})
@@ -51,12 +52,13 @@ export default {
     async joinGame() {
       const roomInfo = await this.$socket.client.request("join room", {
         roomId: this.gameCode,
-        username: this.name
+        userName: this.name
       });
-      this.setPlayers(roomInfo.players)
-      this.setCapacity(roomInfo.capacity)
+      this.setPlayers({players: roomInfo.players})
+      this.setCapacity({capacity: roomInfo.capacity})
       this.createMakao()
-      this.setUsername(this.name)
+      this.setUsername({username: this.name})
+      this.setId({id: this.$socket.client.id})
       await this.$router.push({ path: `/${roomInfo.game}` });
     }
   },

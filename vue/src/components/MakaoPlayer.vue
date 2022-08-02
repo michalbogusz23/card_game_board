@@ -1,6 +1,6 @@
 <template>
   <div class="player flex items-center justify-center">
-    <span class="player-name">{{playerName}}</span>
+    <span :class="['player-name', {'me': me}]">{{playerName}}</span>
     <div class="player-hand"></div>
     <div class="collector flex justify-around">
       <q-btn disabled>Collect one card</q-btn>
@@ -8,14 +8,29 @@
   </div>
 </template>
 <script>
+import {mapGetters, mapState} from "vuex";
+
 export default {
   name: "MakaoPlayer",
   props: {
-    playerName: {
-      type: String,
-      default: "Waiting for player...",
+    playerId: String,
+  },
+  computed: {
+    ...mapState({
+      myId: (state) => state.id
+    }),
+    ...mapGetters({
+      getPlayerName: "room/getPlayerName"
+    }),
+    me() {
+      return this.myId === this.playerId
+    },
+    playerName() {
+      console.log("ziemniak", this.playerId)
+      if (this.playerId) return this.getPlayerName(this.playerId)
+      return "Waiting for player..."
     }
-  }
+  },
 }
 </script>
 <style>
@@ -38,5 +53,9 @@ export default {
   position: absolute;
   left: 5px;
   top: 3px;
+}
+.me {
+  color: #809cc2;
+  font-weight: bolder;
 }
 </style>
