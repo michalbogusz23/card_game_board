@@ -6,6 +6,7 @@ class DeckGenerator {
   }
 
   prepareCards(numOfPlayers, cardsPerPlayer) {
+    this.deck = [];
     this.generateDeck();
     this.shuffle();
     let playersCards = [];
@@ -30,6 +31,7 @@ class DeckGenerator {
   shuffle() {
     for (let i = this.deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
+      [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
     }
   }
 

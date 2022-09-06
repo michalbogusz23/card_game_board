@@ -1,7 +1,7 @@
 module.exports = class Room {
     constructor(roomId, capacity, game) {
         this.id = roomId;
-        this.capacity = capacity
+        this.capacity = parseInt(capacity)
         this.game = game
         this.players = new Map();
     }

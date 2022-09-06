@@ -21,7 +21,7 @@ export default {
   name: 'MakaoSettings',
   data() {
     return {
-      playersAmount: "4",
+      playersAmount: "2",
       gameId: "" + Math.floor(Math.random() * 1_000_000),
       options: [1, 2, 3, 4],
       username: "",
@@ -41,6 +41,7 @@ export default {
       setId: "setId",
     }),
     async createGame() {
+      navigator.clipboard.writeText(this.gameId);
       await this.$socket.client.request("create room", {
         roomId: this.gameId,
         roomCapacity: this.playersAmount,

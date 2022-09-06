@@ -1,23 +1,31 @@
 <template>
   <div class="player flex items-center justify-center">
     <span :class="['player-name', {'me': me}]">{{playerName}}</span>
-    <div class="player-hand"></div>
+    <div class="player-hand flex justify-center items-center q-gutter-sm">
+      <div v-for="(card, id) in cardsToShow" :key="id">
+        <GameCard v-if="!card" reversed/>
+        <GameCard v-if="card" :suit="card.suit" :value="card.value"/>
+      </div>
+    </div>
     <div class="collector flex justify-around">
       <q-btn disabled>Collect one card</q-btn>
     </div>
   </div>
 </template>
 <script>
+import GameCard from "@/components/GameCard";
 import {mapGetters, mapState} from "vuex";
 
 export default {
   name: "MakaoPlayer",
+  components: {GameCard},
   props: {
     playerId: String,
   },
   computed: {
     ...mapState({
-      myId: (state) => state.id
+      myId: (state) => state.id,
+      players: (state) => state.makao.players,
     }),
     ...mapGetters({
       getPlayerName: "room/getPlayerName"
@@ -29,6 +37,10 @@ export default {
       console.log("ziemniak", this.playerId)
       if (this.playerId) return this.getPlayerName(this.playerId)
       return "Waiting for player..."
+    },
+    cardsToShow() {
+      if (Object.keys(this.players).length === 0) return []
+      return Object.entries(this.players).filter(([id]) => id === this.playerId)[0][1]
     }
   },
 }

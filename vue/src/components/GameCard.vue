@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex justify-around items-center">
+  <div class="card flex justify-around items-center shadow-4">
     <div v-if="!reversed">
       <div class="flex justify-around">
         {{this.value}}

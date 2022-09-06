@@ -16,17 +16,14 @@ class Makao {
       playersId.push(player.id)
     })
     playersId.forEach((playerId) => {
-      const xd = Object.entries(this.playersCards).map(([id, playerCards]) => {
-        this.preparePlayerDeckToSend(playerId, id, playerCards)
-      })
-      const myobj = {
-        players: {
-          xd
-        },
+      const cardsToSend = Object.fromEntries(Object.entries(this.playersCards).map(([id, playerCards]) => {
+        return [id, this.preparePlayerDeckToSend(playerId, id, playerCards)]
+      }))
+      const gameInfoForPlayer = {
+        players: cardsToSend,
         stack: {cards: this.stack.length}
       }
-      console.log(myobj)
-      // this.io.to(playerId).emit()
+      this.io.to(playerId).emit("cardsOnTable", gameInfoForPlayer)
     })
   }
 

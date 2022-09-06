@@ -20,9 +20,6 @@ server.listen(3003, () => {
 });
 
 io.on('connection', (socket) => {
-    socket.on('connection', () => {
-        console.log('dupa')
-    })
     socket.on("create room", ({roomId, roomCapacity, game}, callback) => {
         roomMap.set(roomId, new Room(roomId, roomCapacity, game))
         console.log(`Room: ${roomId} has been created, ${roomCapacity}, ${game}`)
