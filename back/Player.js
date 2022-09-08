@@ -1,7 +1,8 @@
-module.exports = class Peer {
-    constructor(id, name) {
+module.exports = class Player {
+    constructor(id, name, index) {
         this.id = id;
         this.name = name;
+        this.index = index;
     }
 
     getPlayerInfo() {

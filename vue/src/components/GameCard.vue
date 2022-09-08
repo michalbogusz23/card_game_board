@@ -52,13 +52,14 @@ export default {
 </script>
 <style>
 .card {
-  border: 1px black solid;
+  /*border: 1px black solid;*/
   background: white;
   color: black;
   width: 40px;
   height: 60px;
   border-radius: 4px;
   font-size: 20px;
+  transition: transform 300ms;
 }
 .suit {
   font-size: 30px;

@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const Room = require("./Room");
-const Player = require("./Player");
 const {GameProvider} = require("./games/GameProvider");
 const {DeckGenerator} = require("./DeckGenerator");
 const server = http.createServer(app);
@@ -27,8 +26,9 @@ io.on('connection', (socket) => {
     })
     socket.on("join room", ({userName, roomId}, callback) => {
         socket.join(roomId)
+        socket.roomId = roomId
         const room = roomMap.get(roomId)
-        room.addPlayer(new Player(socket.id, userName))
+        room.addPlayer(socket.id, userName)
 
         console.log(`User: ${userName} ${socket.id} has joined room: ${roomId}`)
 
@@ -38,5 +38,24 @@ io.on('connection', (socket) => {
         if(room.isFull()) {
             gameMap.set(roomId, new GameProvider(room, io, deckGenerator));
         }
+    })
+
+    socket.on("canBeDrawn", ({card}, callback) => {
+        console.log(`Can card: {${card.value} ${card.suit}} be drawn`)
+        callback(true)
+    })
+
+    socket.on("collect", (_, callback) => {
+        console.log(`User: ${socket.id} has collected`)
+        const game = gameMap.get(socket.roomId)
+        game.collectCards(socket.id)
+        callback(true)
+    })
+
+    socket.on("layOut", ({cards}, callback) => {
+        console.log(`User: ${socket.id} has laid out: ${cards}`)
+        const game = gameMap.get(socket.roomId)
+        game.layOutCards(socket.id, cards)
+        callback(true)
     })
 });

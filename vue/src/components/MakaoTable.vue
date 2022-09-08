@@ -1,6 +1,8 @@
 <template>
   <div class="makao-table flex items-center justify-center">
-    <div class="card-drawn"></div>
+    <div class="card-drawn flex items-center justify-center q-gutter-sm">
+      <GameCard v-for="(board, index) in boardCards" :key="index" :suit="board.suit" :value="board.value"/>
+    </div>
     <div v-if="stack > 0" class="card-stack flex">
       <GameCard class="card-reversed" v-for="index in stack" :key="index" reversed></GameCard>
     </div>
@@ -15,6 +17,7 @@ export default {
   computed: {
     ...mapState({
       stack: (state) => state.makao.stack,
+      boardCards: (state) => state.makao.board,
     }),
   },
 }

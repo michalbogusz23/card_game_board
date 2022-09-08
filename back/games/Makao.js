@@ -3,9 +3,12 @@ class Makao {
     this.room = room;
     this.io = io;
     this.playersNumber = room.players.size
-    const [playersCards, stack] = deckGenerator.prepareCards(this.playersNumber,5)
+    let [playersCards, stack] = deckGenerator.prepareCards(this.playersNumber,5)
+    this.board = [stack.pop()]
     this.playersCards = playersCards
     this.stack = stack
+    this.whichTurn = room.getFirstPlayerId()
+    this.amountOfCardsToCollect = 1
     this.linkPlayerCardsWithPlayer()
     this.sendCardInfoToPlayers()
   }
@@ -21,7 +24,9 @@ class Makao {
       }))
       const gameInfoForPlayer = {
         players: cardsToSend,
-        stack: {cards: this.stack.length}
+        stack: {cards: this.stack.length},
+        board: this.board,
+        whichTurn: this.whichTurn,
       }
       this.io.to(playerId).emit("cardsOnTable", gameInfoForPlayer)
     })
@@ -40,6 +45,28 @@ class Makao {
   preparePlayerDeckToSend(playerId, id, playerCards) {
     if(playerId === id) return playerCards
     return playerCards.map(() => null)
+  }
+
+  collectCards(playerId) {
+    const playerCards = this.playersCards[playerId]
+    const cardsToCollect = this.stack.splice(-this.amountOfCardsToCollect, this.amountOfCardsToCollect)
+    playerCards.push(...cardsToCollect)
+    this.amountOfCardsToCollect = 1
+    this.whichTurn = this.room.getNextPlayerId(playerId)
+    this.sendCardInfoToPlayers()
+  }
+
+  layOutCards(playerId, cards) {
+    this.playersCards[playerId] = this.playersCards[playerId].filter((playerCard) => {
+      for (const card of cards) {
+        if ((playerCard.value === card.value) && (playerCard.suit === card.suit)) return false
+      }
+      return true
+    })
+    this.stack.unshift(...this.board)
+    this.board = cards
+    this.whichTurn = this.room.getNextPlayerId(playerId)
+    this.sendCardInfoToPlayers()
   }
 }
 
