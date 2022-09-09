@@ -66,8 +66,12 @@ export default {
   },
   methods: {
     async chooseCard(id) {
-      if(await this.$socket.client.request("canBeDrawn", {card: this.cardsToShow[id]}))
+      if(await this.$socket.client.request("canBeDrawn", {card: this.cardsToShow[id]})) {
         this.cardsToShow[id].chosen = !this.cardsToShow[id].chosen
+      } else {
+        this.$q.notify( "You can't draw this card")
+      }
+
     },
     async collect() {
       await this.$socket.client.request("collect")

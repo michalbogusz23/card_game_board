@@ -6,6 +6,7 @@ class Makao {
     let [playersCards, stack] = deckGenerator.prepareCards(this.playersNumber,5)
     this.board = [stack.pop()]
     this.playersCards = playersCards
+    this.playersCardsChosen = {}
     this.stack = stack
     this.whichTurn = room.getFirstPlayerId()
     this.amountOfCardsToCollect = 1
@@ -38,6 +39,7 @@ class Makao {
     this.room.players.forEach((player) => {
       cards[player.id] = this.playersCards[i];
       i++;
+      this.playersCardsChosen[player.id] = []
     })
     this.playersCards = cards
   }
@@ -67,6 +69,15 @@ class Makao {
     this.board = cards
     this.whichTurn = this.room.getNextPlayerId(playerId)
     this.sendCardInfoToPlayers()
+  }
+
+  choseCard(playerId, card) {
+    if (this.board.at(-1).value === card.value || this.board.at(-1).suit === card.suit) {
+      this.playersCardsChosen[playerId].push(card)
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

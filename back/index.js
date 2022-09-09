@@ -42,7 +42,9 @@ io.on('connection', (socket) => {
 
     socket.on("canBeDrawn", ({card}, callback) => {
         console.log(`Can card: {${card.value} ${card.suit}} be drawn`)
-        callback(true)
+        const game = gameMap.get(socket.roomId)
+        const wasChosen = game.choseCard(socket.id, card)
+        callback(wasChosen)
     })
 
     socket.on("collect", (_, callback) => {
