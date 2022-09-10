@@ -4,6 +4,9 @@
     <div v-if="isPlayerTurn" class="arrow">
       <span>▶</span>
     </div>
+    <div v-if="playerPausedRounds" class="pausing">
+      Pausing: {{ playerPausedRounds }} round(s)
+    </div>
     <div class="player-hand flex justify-center items-center q-gutter-sm">
       <div v-for="(card, id) in cardsToShow" :key="id">
         <GameCard v-if="!card" reversed/>
@@ -17,7 +20,7 @@
       </div>
     </div>
     <div class="collector flex justify-around">
-      <q-btn :class="[{hidden: !isMyTurn}]" @click="collect">Collect one card</q-btn>
+      <q-btn :class="[{hidden: !isMyTurn}]" @click="collect">Collect</q-btn>
       <q-btn :class="[{hidden: !isMyTurn || !anyCardSelected}]" @click="layOut">Lay out</q-btn>
     </div>
   </div>
@@ -37,6 +40,7 @@ export default {
       myId: (state) => state.id,
       players: (state) => state.makao.players,
       whichTurn: (state) => state.makao.whichTurn,
+      playersPaused: (state) => state.makao.playersPaused,
     }),
     ...mapGetters({
       getPlayerName: "room/getPlayerName"
@@ -62,7 +66,9 @@ export default {
     isMyTurn() {
       return this.whichTurn === this.myId && this.myId === this.playerId
     },
-
+    playerPausedRounds() {
+      return Math.ceil(this.playersPaused[this.playerId] / this.players.size)
+    }
   },
   methods: {
     async chooseCard(id) {
@@ -80,6 +86,55 @@ export default {
       await this.$socket.client.request("layOut", {cards: this.cardsToShow.filter(card => card.chosen)})
     }
   },
+  sockets: {
+    chooseDemand() {
+      if (!this.me) return
+      this.$q.dialog({
+        title: "Choose demand",
+        options: {
+          type: "radio",
+          model: null,
+          items: [
+            {label: "5", value: "5"},
+            {label: "6", value: "6"},
+            {label: "7", value: "7"},
+            {label: "8", value: "8"},
+            {label: "9", value: "9"},
+            {label: "10", value: "10"},
+            {label: "Q", value: "Q"},
+          ],
+        },
+        persistent: true
+      }).onOk(async (data) => {
+        await this.$socket.client.request("layOut", {
+          cards: this.cardsToShow.filter(card => card.chosen),
+          demand: data
+        })
+      })
+    },
+    chooseSuit() {
+      if (!this.me) return
+      this.$q.dialog({
+        title: "Change color",
+        options: {
+          type: "radio",
+          model: null,
+          items: [
+            {label: "Spades ♠", value: "spades"},
+            {label: "Hearts ♥", value: "hearts"},
+            {label: "Diamonds ♦", value: "diamonds"},
+            {label: "Clubs ♣", value: "clubs"},
+          ],
+        },
+        persistent: true
+      }).onOk(async (data) => {
+        await this.$socket.client.request("layOut", {
+          cards: this.cardsToShow.filter(card => card.chosen),
+          choice: data
+        })
+      })
+    },
+  }
 }
 </script>
 <style>
@@ -112,6 +167,11 @@ export default {
   top: 35px;
   color: #05b365;
   font-size: 25px;
+}
+.arrow {
+  position: absolute;
+  left: 5px;
+  top: 35px;
 }
 .me {
   color: #809cc2;

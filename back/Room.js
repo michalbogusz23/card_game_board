@@ -15,7 +15,7 @@ module.exports = class Room {
         this.players.set(id, player);
     }
 
-    getNextPlayerId(playerId) {
+    getNextPlayerId(playerId, playersPaused) {
         const playerIndex = this.players.get(playerId)?.index
         if(playerIndex === undefined) return null
 
@@ -24,10 +24,11 @@ module.exports = class Room {
         this.players.forEach((player) => {
             if(player.index === nextPlayerIndex) nextPlayerId = player.id
         })
+        if(playersPaused[playerId]) this.getNextPlayerId(playerId, playersPaused)
         return nextPlayerId
     }
 
-    getPreviousPlayerId(playerId) {
+    getPreviousPlayerId(playerId, playersPaused) {
         const player = this.players.get(playerId)
         if (player === undefined) return null
         const previousPlayerIndex = player.index === 0 ? this.players.size - 1 : player.index - 1
@@ -35,6 +36,7 @@ module.exports = class Room {
         this.players.forEach((player) => {
             if (player.index === previousPlayerIndex) previousPlayerId = player.id
         })
+        if(playersPaused[playerId]) this.getPreviousPlayerId(playerId, playersPaused)
         return previousPlayerId
     }
 

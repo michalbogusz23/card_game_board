@@ -54,10 +54,10 @@ io.on('connection', (socket) => {
         callback(true)
     })
 
-    socket.on("layOut", ({cards}, callback) => {
+    socket.on("layOut", ({cards, demand="", choice=""}, callback) => {
         console.log(`User: ${socket.id} has laid out: ${cards}`)
         const game = gameMap.get(socket.roomId)
-        game.layOutCards(socket.id, cards)
+        game.layOutCards(socket.id, cards, demand, choice)
         callback(true)
     })
 });

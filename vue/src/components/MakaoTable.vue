@@ -1,7 +1,19 @@
 <template>
   <div class="makao-table flex items-center justify-center">
+    <div class="additional-info">
+      <div v-if="demand">Demand of: {{ demand }}</div>
+      <div v-if="parseInt(amountOfCardsToCollect) > 1">
+        To collect: {{ amountOfCardsToCollect }} cards
+      </div>
+      <div v-if="suitsChoice">Color changed to: {{ suitsChoice }}</div>
+    </div>
     <div class="card-drawn flex items-center justify-center q-gutter-sm">
-      <GameCard v-for="(board, index) in boardCards" :key="index" :suit="board.suit" :value="board.value"/>
+      <GameCard
+          v-for="(board, index) in boardCards"
+          :key="index"
+          :suit="board.suit"
+          :value="board.value"
+      />
     </div>
     <div v-if="stack > 0" class="card-stack flex">
       <GameCard class="card-reversed" v-for="index in stack" :key="index" reversed></GameCard>
@@ -18,6 +30,9 @@ export default {
     ...mapState({
       stack: (state) => state.makao.stack,
       boardCards: (state) => state.makao.board,
+      demand: (state) => state.makao.demand,
+      suitsChoice: (state) => state.makao.suitsChoice,
+      amountOfCardsToCollect: (state) => state.makao.amountOfCardsToCollect,
     }),
   },
 }
@@ -34,10 +49,16 @@ export default {
    padding-left: 60px;
  }
  .makao-table {
+   position: relative;
    height: 300px;
    width: 100%
  }
  .card-reversed {
    margin-left: -50px;
+ }
+ .additional-info {
+   position: absolute;
+   top: 5px;
+   left: 5px;
  }
 </style>
