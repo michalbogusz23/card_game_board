@@ -41,7 +41,7 @@ export default {
       setId: "setId",
     }),
     async createGame() {
-      navigator.clipboard.writeText(this.gameId);
+      this.unsecuredCopyToClipboard(this.gameId);
       await this.$socket.client.request("create room", {
         roomId: this.gameId,
         roomCapacity: this.playersAmount,
@@ -59,6 +59,19 @@ export default {
       this.createMakao();
     },
   },
+  unsecuredCopyToClipboard(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand('copy');
+  } catch (err) {
+    console.error('Unable to copy to clipboard', err);
+  }
+  document.body.removeChild(textArea);
+},
   mounted() {
     this.username = this.name
   }
