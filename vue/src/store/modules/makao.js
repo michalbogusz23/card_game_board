@@ -39,7 +39,9 @@ export default {
     setPlayersPaused(state, { playersPaused }) {
       state.playersPaused = playersPaused;
     },
-
+    setRoundsToPause(state, { roundsToPause }) {
+      state.roundsToPause = roundsToPause;
+    }
   },
   actions: {
     socket_cardsOnTable({commit}, {
@@ -51,6 +53,7 @@ export default {
       suitsChoice,
       demand,
       playersPaused,
+      roundsToPause,
     }) {
       commit("setPlayers", { players })
       commit("setStack", { stack: stack['cards'] })
@@ -59,7 +62,8 @@ export default {
       commit("setAmountOfCardsToCollect", { amountOfCardsToCollect })
       commit("setSuitsChoice", { suitsChoice })
       commit("setDemand", { demand })
-      commit("setPlayersPause", { playersPaused })
+      commit("setPlayersPaused", { playersPaused })
+      commit("setRoundsToPause", { roundsToPause })
     },
   },
 };

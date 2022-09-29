@@ -14,6 +14,7 @@ class Makao {
     this.demand = ""
     this.demandScope = 0
     this.playersPaused = {}
+    this.roundsToPause = 0
     this.linkPlayerCardsWithPlayer()
     this.sendCardInfoToPlayers()
   }
@@ -36,6 +37,7 @@ class Makao {
         demand: this.demand,
         amountOfCardsToCollect: this.amountOfCardsToCollect,
         playersPaused: this.playersPaused,
+        roundsToPause: this.roundsToPause,
       }
       this.io.to(playerId).emit("cardsOnTable", gameInfoForPlayer)
     })
@@ -90,15 +92,16 @@ class Makao {
     this.board = cards
 
     this.clearOldRules(playerId)
-
-    this.whichTurn = this.room.getNextPlayerId(playerId, this.playersPaused)
+    if(cards.size === 0 && this.roundsToPause > 0) {
+      this.playersPaused[playerId] = this.roundsToPause
+    }
     if(this.playersPaused[playerId]) {
       this.sendCardInfoToPlayers()
       return
     }
-    if (cards[0].value in ["2", "3"]) this.amountOfCardsToCollect = parseInt(cards[0].value)
+    if (cards[0].value in ["2", "3"]) this.amountOfCardsToCollect += parseInt(cards[0].value)
     if (cards[0].value === "K" && cards[0].suit in ["hearts", "spades"]) {
-      this.amountOfCardsToCollect = 5
+      this.amountOfCardsToCollect += 5
       if (cards[0].suit === "spades") this.whichTurn = this.room.getPreviousPlayerId(playerId, this.playersPaused)
     }
     if (cards[0].value === "4") {
@@ -110,6 +113,7 @@ class Makao {
       this.demandScope = this.playersNumber
     }
     if(choice) this.suitsChoice = choice
+    this.whichTurn = this.room.getNextPlayerId(playerId, this.playersPaused)
 
     this.sendCardInfoToPlayers()
   }
@@ -118,7 +122,8 @@ class Makao {
     this.suitsChoice = ""
     if(this.demandScope) this.demandScope--
     if(!this.demandScope) this.demand = ""
-    // if(this.playersPaused[playerId]) this.playersPaused[playerId] --
+    const prevPlayer = this.room.getPreviousPlayerId(playerId, {})
+    if(this.playersPaused[prevPlayer]) this.playersPaused[prevPlayer] --
   }
 
   choseCard(playerId, card) {
@@ -130,12 +135,12 @@ class Makao {
 
   canCardBePlayed(card) {
     if (this.isPenaltyCard(this.board.at(-1)) && this.isPenaltyCard(card)) return false
-    if (this.demand) {
+    if (this.demand)
       return card.value === this.demand || card.value === "J";
-    }
-    if (this.suitsChoice) {
+    if (this.suitsChoice)
       return card.suit === this.suitsChoice || card.value === "A";
-    }
+    if(this.roundsToPause)
+      return card.value === "4"
     return this.board.at(-1).value === card.value
           || this.board.at(-1).suit === card.suit
   }

@@ -28,6 +28,10 @@ io.on('connection', (socket) => {
         socket.join(roomId)
         socket.roomId = roomId
         const room = roomMap.get(roomId)
+        if (!room) {
+            callback({ error: "no room"})
+            return
+        }
         room.addPlayer(socket.id, userName)
 
         console.log(`User: ${userName} ${socket.id} has joined room: ${roomId}`)

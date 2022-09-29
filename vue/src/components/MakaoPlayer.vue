@@ -4,8 +4,8 @@
     <div v-if="isPlayerTurn" class="arrow">
       <span>▶</span>
     </div>
-    <div v-if="playerPausedRounds" class="pausing">
-      Pausing: {{ playerPausedRounds }} round(s)
+    <div v-if="playersPausedRounds" class="pausing">
+      Pausing: {{ playersPausedRounds }} round(s)
     </div>
     <div class="player-hand flex justify-center items-center q-gutter-sm">
       <div v-for="(card, id) in cardsToShow" :key="id">
@@ -20,7 +20,8 @@
       </div>
     </div>
     <div class="collector flex justify-around">
-      <q-btn :class="[{hidden: !isMyTurn}]" @click="collect">Collect</q-btn>
+      <q-btn :class="[{hidden: !isMyTurn || roundsToPause}]" @click="collect">Collect</q-btn>
+      <q-btn :class="[{hidden: !isMyTurn && !roundsToPause}]" @click="collect">Wait</q-btn>
       <q-btn :class="[{hidden: !isMyTurn || !anyCardSelected}]" @click="layOut">Lay out</q-btn>
     </div>
   </div>
@@ -41,6 +42,7 @@ export default {
       players: (state) => state.makao.players,
       whichTurn: (state) => state.makao.whichTurn,
       playersPaused: (state) => state.makao.playersPaused,
+      roundsToPause: (state) => state.makao.roundsToPause,
     }),
     ...mapGetters({
       getPlayerName: "room/getPlayerName"
@@ -66,7 +68,7 @@ export default {
     isMyTurn() {
       return this.whichTurn === this.myId && this.myId === this.playerId
     },
-    playerPausedRounds() {
+    playersPausedRounds() {
       return Math.ceil(this.playersPaused[this.playerId] / this.players.size)
     }
   },

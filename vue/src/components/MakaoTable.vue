@@ -6,6 +6,7 @@
         To collect: {{ amountOfCardsToCollect }} cards
       </div>
       <div v-if="suitsChoice">Color changed to: {{ suitsChoice }}</div>
+      <div v-if="roundsToPause">You have to pause: {{ roundsToPause }}</div>
     </div>
     <div class="card-drawn flex items-center justify-center q-gutter-sm">
       <GameCard
@@ -33,6 +34,7 @@ export default {
       demand: (state) => state.makao.demand,
       suitsChoice: (state) => state.makao.suitsChoice,
       amountOfCardsToCollect: (state) => state.makao.amountOfCardsToCollect,
+      roundsToPause: (state) => state.makao.roundsToPause,
     }),
   },
 }
