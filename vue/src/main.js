@@ -9,7 +9,8 @@ import { io } from 'socket.io-client';
 
 
 let options = { transports: ["websocket"], rejectUnauthorized: false };
-const socket = io("http://localhost:3003", options)
+const ip = process.env.NODE_ENV === "development" ? "http://localhost:3003" : "http://3.92.77.186:3003/";
+const socket = io(ip, options)
 
 socket.request = function request(type, data = {}) {
   return new Promise((resolve, reject) => {
