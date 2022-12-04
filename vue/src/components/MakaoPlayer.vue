@@ -20,9 +20,9 @@
       </div>
     </div>
     <div class="collector flex justify-around">
-      <q-btn :class="[{hidden: !isMyTurn || roundsToPause}]" @click="collect">Collect</q-btn>
-      <q-btn :class="[{hidden: !isMyTurn && !roundsToPause}]" @click="collect">Wait</q-btn>
-      <q-btn :class="[{hidden: !isMyTurn || !anyCardSelected}]" @click="layOut">Lay out</q-btn>
+      <q-btn :class="[{hidden: !isMyTurn || roundsToPause}, 'player-btn']" @click="collect">Zbierz</q-btn>
+      <q-btn :class="[{hidden: !roundsToPause}, 'player-btn']" @click="collect">Czekaj</q-btn>
+      <q-btn :class="[{hidden: !isMyTurn || !anyCardSelected}, 'player-btn']" @click="layOut">Wyłóż</q-btn>
     </div>
   </div>
 </template>
@@ -51,9 +51,8 @@ export default {
       return this.myId === this.playerId
     },
     playerName() {
-      console.log("ziemniak", this.playerId)
       if (this.playerId) return this.getPlayerName(this.playerId)
-      return "Waiting for player..."
+      return "Oczekiwanie na gracza..."
     },
     cardsToShow() {
       if (Object.keys(this.players).length === 0) return []
@@ -77,7 +76,7 @@ export default {
       if(await this.$socket.client.request("canBeDrawn", {card: this.cardsToShow[id]})) {
         this.cardsToShow[id].chosen = !this.cardsToShow[id].chosen
       } else {
-        this.$q.notify( "You can't draw this card")
+        this.$q.notify( "Nie możesz wybrać tej karty")
       }
 
     },
@@ -140,6 +139,9 @@ export default {
 }
 </script>
 <style>
+.player-btn{
+  margin: 20px 0 20px 0;
+}
 .player {
   height: 100px;
   width: 100%;

@@ -1,13 +1,13 @@
 <template>
-    <div class="shadow-10 bg-grey-9 q-pa-lg">
-      <q-input class="q-mb-xl" v-model="username" label="Your name"></q-input>
+    <div class="shadow-10 bg-grey-9 q-pa-lg container">
+      <q-input class="q-mb-xl" v-model="username" label="Twoje imię"></q-input>
       <q-select
           v-model="playersAmount"
           :options="options"
-          label="Number of players"
+          label="Liczba graczy"
           class="select q-mb-md">
       </q-select>
-      <q-btn outline @click="createGame">Create game</q-btn>
+      <q-btn class="q-mx-lg" outline @click="createGame">Stwórz grę</q-btn>
     </div>
 </template>
 
@@ -42,6 +42,7 @@ export default {
     }),
     async createGame() {
       this.unsecuredCopyToClipboard(this.gameId);
+      this.$q.notify( "Skopiowano ID gry, prześlij je znajomemu")
       await this.$socket.client.request("create room", {
         roomId: this.gameId,
         roomCapacity: this.playersAmount,
@@ -78,11 +79,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .border {
   border: solid 1px white;
 }
-.select {
-  width: 150px;
+.container {
+  border-radius: 5px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
 }
 </style>

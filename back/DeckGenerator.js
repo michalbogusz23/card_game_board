@@ -18,6 +18,7 @@ class DeckGenerator {
     playersCards[0].push({ value: "A", suit: "spades", chosen: false })
     playersCards[0].push({ value: "J", suit: "spades", chosen: false })
     playersCards[0].push({ value: "4", suit: "spades", chosen: false })
+    playersCards[1].push({ value: "J", suit: "hearts", chosen: false })
     const stack = this.deck.slice(numOfPlayers * cardsPerPlayer - 1, -1);
     stack.push({ value: "5", suit: "spades", chosen: false })
     return [playersCards, stack];

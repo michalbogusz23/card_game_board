@@ -1,12 +1,12 @@
 <template>
   <div class="makao-table flex items-center justify-center">
     <div class="additional-info">
-      <div v-if="demand">Demand of: {{ demand }}</div>
+      <div v-if="demand">Żądanie: {{ demand }}</div>
       <div v-if="parseInt(amountOfCardsToCollect) > 1">
-        To collect: {{ amountOfCardsToCollect }} cards
+        Kart do zebrania {{ amountOfCardsToCollect }}
       </div>
-      <div v-if="suitsChoice">Color changed to: {{ suitsChoice }}</div>
-      <div v-if="roundsToPause">You have to pause: {{ roundsToPause }}</div>
+      <div v-if="suitsChoice">Kolor zmieniony na: {{ suitsChoice }}</div>
+      <div v-if="roundsToPause">Musisz pauzować {{ roundsToPause }} rund</div>
     </div>
     <div class="card-drawn flex items-center justify-center q-gutter-sm">
       <GameCard

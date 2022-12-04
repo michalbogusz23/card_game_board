@@ -1,20 +1,20 @@
 <template>
   <q-page class="flex flex-center column">
-    <div class="shadow-10 bg-grey-9">
+    <div class="container shadow-5 bg-grey-9">
       <div>
-        <div class="flex flex-center">
-          <q-input outlined v-model="gameCode" label="GAME CODE"></q-input>
-          <q-btn outline @click="joinGame">Join game</q-btn>
-        </div>
-        <div>
-          <q-input outlined v-model="name" label="YOUR NAME"></q-input>
-        </div>
+        <q-input outlined v-model="name" label="Twoje imię"></q-input>
       </div>
-      <div class="flex flex-center q-pa-xl">
-        <q-btn outline @click="newGame">
-          Create new game
-        </q-btn>
+    </div>
+    <div class="container shadow-10 bg-grey-9">
+      <div class="flex flex-center q-gutter-lg">
+        <q-input outlined v-model="gameCode" label="Kod gry"></q-input>
+        <q-btn outline @click="joinGame">Dołącz do gry</q-btn>
       </div>
+    </div>
+    <div class="container shadow-10 bg-grey-9 flex flex-center">
+      <q-btn outline @click="newGame">
+        Stwórz grę
+      </q-btn>
     </div>
   </q-page>
 </template>
@@ -66,5 +66,11 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.container {
+  width: 450px;
+  padding: 15px 30px 15px 30px;
+  margin: 10px;
+  border-radius: 5px;
+}
 </style>
